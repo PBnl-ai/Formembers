@@ -161,9 +161,16 @@ img.fm-image { transition: filter 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7
     </button>
   </div>
   <a href="index.html" class="absolute left-1/2 -translate-x-1/2 pointer-events-auto" aria-label="For Members. Home" style="color: var(--text);">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-7 lg:h-8" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-10 lg:h-16" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
   </a>
   <div class="flex gap-8 items-center pointer-events-auto" style="color: var(--text);">
+    <form class="hidden md:flex items-center relative" onsubmit="return false;" role="search">
+      <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" class="absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none" style="font-size:14px;color:var(--text-faint);"></iconify-icon>
+      <input type="search" placeholder="Zoek een plek, stad of categorie…" aria-label="Zoek" class="w-44 lg:w-64 bg-transparent py-1.5 pl-7 pr-2 text-sm focus:outline-none" style="border-bottom:1px solid var(--border-strong);color:var(--text);">
+    </form>
+    <button type="button" class="md:hidden flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Zoek" onclick="alert('Zoek volgt in v0.2');" style="color:var(--text);">
+      <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" style="font-size:22px"></iconify-icon>
+    </button>
     <a href="ontdek.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity hidden md:block">Ontdek</a>
     <a href="atlas.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity">Mijn Atlas</a>
   </div>
@@ -223,7 +230,7 @@ img.fm-image { transition: filter 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7
 </div>
 
 <!-- ───── Kruimelpad ───── -->
-<div class="pt-28 lg:pt-32">
+<div class="pt-28 lg:pt-40">
   <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
     <nav aria-label="Kruimelpad" class="text-xs font-semibold uppercase tracking-widest flex flex-wrap items-center gap-x-3 gap-y-1" style="color: var(--text-faint);">
       <a href="country.html" class="hover:opacity-70 transition-opacity" style="color: var(--text-muted);">Frankrijk</a>
