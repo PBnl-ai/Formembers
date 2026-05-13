@@ -90,9 +90,10 @@ nav.fm-nav-bar > * { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) {
   nav.fm-nav-bar::before { animation: none; }
 }
-/* Mobiel: drift uit (voorkomt flicker op iOS Safari met dubbele blur-stack) */
+/* Mobiel: lichtere drift (kleinere blur + hardware-accelerated om flicker te voorkomen) */
+nav.fm-nav-bar::before { will-change: transform; transform: translateZ(0); backface-visibility: hidden; }
 @media (max-width: 767px) {
-  nav.fm-nav-bar::before { animation: none; opacity: 0.6; }
+  nav.fm-nav-bar::before { filter: blur(22px); opacity: 0.8; animation-duration: 26s; }
 }
 
 /* Hero image — op mobiel lucht weg, focus op onderkant (doorgaan-gevoel) */
