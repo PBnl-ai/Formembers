@@ -4,43 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Members. | Curated Luxury Directory</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        alabaster: '#F8F8F7',
-                        taupe: '#D1BCAF',
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" href="assets/style.css">
+(function(){var t=localStorage.getItem('fm-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: ['class','[data-theme="dark"]'],
+  theme: { extend: { colors: {
+    'pb-bg':'var(--bg)','pb-deep':'var(--bg-deep)','pb-surface':'var(--surface)','pb-alt':'var(--surface-alt)',
+    'pb-text':'var(--text)','pb-sec':'var(--text-sec)','pb-muted':'var(--text-muted)','pb-faint':'var(--text-faint)',
+    'pb-dim':'var(--text-dim)','pb-ghost':'var(--text-ghost)',
+    'pb-border':'var(--border)','pb-border-mid':'var(--border-mid)','pb-border-strong':'var(--border-strong)',
+    alabaster:'#f4f2ef', taupe:'#afa297'
+  }, fontFamily: { serif:['Fraunces','serif'], sans:['"Inter Tight"','sans-serif'] } } }
+}
+</script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<style>
+:root,[data-theme="light"]{--bg:#f4f2ef;--bg-deep:#fdfcfb;--surface:#fdfcfb;--surface-alt:#ede9e4;--text:#1a1816;--text-sec:#2e2b28;--text-muted:#524d48;--text-faint:#8a857f;--text-dim:#9e9993;--text-ghost:#c8c3be;--border:#e6e2de;--border-mid:#ddd9d4;--border-strong:#cec9c3;--accent:#afa297;}
+[data-theme="dark"]{--bg:#050505;--bg-deep:#030303;--surface:#0a0a0a;--surface-alt:#0d0d0c;--text:#fff;--text-sec:#e2e2e2;--text-muted:#a3a3a3;--text-faint:#666;--text-dim:#404040;--text-ghost:#2a2a2a;--border:rgba(255,255,255,0.06);--border-mid:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.10);--accent:#afa297;}
+html,body{background:var(--bg);color:var(--text);}
+body{transition:background-color .3s ease,color .3s ease;font-feature-settings:"ss01","ss02";}
+*,*::before,*::after{border-color:var(--border);}
+::selection{background:rgba(175,162,151,.30);color:var(--text);}
+[data-theme="dark"] img.fm-image{filter:contrast(1.05) brightness(0.97);}
+img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubic-bezier(0.16,1,0.3,1);}
+[data-theme="dark"] .group:hover img.fm-image{filter:none;}
+.theme-toggle{position:fixed;top:24px;right:24px;z-index:100;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border-mid);color:var(--text);cursor:pointer;backdrop-filter:blur(12px);transition:all .3s cubic-bezier(0.16,1,0.3,1);}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
+[data-theme="dark"] .show-light{display:none;}[data-theme="light"] .show-dark{display:none;}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+[data-theme="dark"] ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);}
+[data-theme="light"] ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.08);}
+</style>
 </head>
-<body class="bg-alabaster text-stone-900 font-sans antialiased selection:bg-stone-200 overflow-x-hidden">
+<body class="font-sans antialiased overflow-x-hidden">
+
+<button class="theme-toggle" onclick="var c=document.documentElement.getAttribute('data-theme');var n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('fm-theme',n);" aria-label="Wissel thema">
+  <iconify-icon class="show-dark" icon="solar:sun-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+  <iconify-icon class="show-light" icon="solar:moon-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+</button>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-white/40 backdrop-blur-md text-stone-900 p-6 lg:p-10 flex justify-between items-center pointer-events-none">
+    <nav class="fixed top-0 w-full z-50 p-6 lg:p-10 flex justify-between items-center pointer-events-none" style="background:rgba(244,242,239,0.5);backdrop-filter:blur(12px);">
         <div class="pointer-events-auto">
             <button id="menu-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
             </button>
         </div>
         <a href="index.html" class="absolute left-1/2 -translate-x-1/2 pointer-events-auto cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-8 lg:h-9" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-10 lg:h-16" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
         </a>
         <div class="flex gap-8 items-center pointer-events-auto">
+            <form class="hidden md:flex items-center relative" onsubmit="return false;" role="search">
+                <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" class="absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none text-pb-faint" style="font-size:14px;"></iconify-icon>
+                <input type="search" placeholder="Zoek een plek, stad of categorie…" aria-label="Zoek" class="w-44 lg:w-64 bg-transparent py-1.5 pl-7 pr-2 text-sm focus:outline-none border-b border-pb-border-mid text-pb-text placeholder:text-pb-faint">
+            </form>
+            <button type="button" class="md:hidden flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Zoek" onclick="alert('Zoek volgt in v0.2');">
+                <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" style="font-size:22px"></iconify-icon>
+            </button>
             <a href="ontdek.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity hidden md:block">Ontdek</a>
             <a href="atlas.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity">Mijn Atlas</a>
         </div>
     </nav>
 
     <!-- Fullscreen Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-stone-900 text-alabaster opacity-0 pointer-events-none transition-opacity duration-700 ease-in-out flex flex-col">
+    <div id="mobile-menu" class="fixed inset-0 z-[60] opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col" style="background:var(--bg-deep);transition-timing-function:cubic-bezier(0.16,1,0.3,1);">
         <div class="p-6 lg:p-10 flex justify-between items-center relative">
             <button id="close-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -53,42 +90,42 @@
         <div class="flex-1 flex flex-col justify-center p-6 lg:p-10 max-w-[1600px] w-full mx-auto">
             <nav class="flex flex-col gap-4 lg:gap-6">
                 <a href="index.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6">
-                    <span class="group-hover:text-stone-400 group-hover:italic transition-all duration-500">Home</span>
-                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-stone-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
+                    <span class="group-hover:text-pb-faint group-hover:italic transition-all duration-500">Home</span>
+                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-pb-faint opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
                 </a>
                 <a href="ontdek.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6">
-                    <span class="group-hover:text-stone-400 group-hover:italic transition-all duration-500">Ontdek</span>
-                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-stone-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
+                    <span class="group-hover:text-pb-faint group-hover:italic transition-all duration-500">Ontdek</span>
+                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-pb-faint opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
                 </a>
                 <a href="sanctuary.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6">
-                    <span class="group-hover:text-stone-400 group-hover:italic transition-all duration-500">Sanctuary</span>
-                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-stone-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
+                    <span class="group-hover:text-pb-faint group-hover:italic transition-all duration-500">Sanctuary</span>
+                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-pb-faint opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
                 </a>
                 <a href="coming-soon.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6">
-                    <span class="group-hover:text-stone-400 group-hover:italic transition-all duration-500">Table</span>
-                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-stone-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
+                    <span class="group-hover:text-pb-faint group-hover:italic transition-all duration-500">Table</span>
+                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-pb-faint opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
                 </a>
                 <a href="shop.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6">
-                    <span class="group-hover:text-stone-400 group-hover:italic transition-all duration-500">Shop</span>
-                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-stone-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
+                    <span class="group-hover:text-pb-faint group-hover:italic transition-all duration-500">Shop</span>
+                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-pb-faint opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
                 </a>
                 <a href="route.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6">
-                    <span class="group-hover:text-stone-400 group-hover:italic transition-all duration-500">Routes</span>
-                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-stone-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
+                    <span class="group-hover:text-pb-faint group-hover:italic transition-all duration-500">Routes</span>
+                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-pb-faint opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
                 </a>
                 <a href="atlas.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6">
-                    <span class="group-hover:text-stone-400 group-hover:italic transition-all duration-500">Mijn Atlas</span>
-                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-stone-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
+                    <span class="group-hover:text-pb-faint group-hover:italic transition-all duration-500">Mijn Atlas</span>
+                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl text-pb-faint opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500"></iconify-icon>
                 </a>
             </nav>
         </div>
         <div class="p-6 lg:p-10 max-w-[1600px] w-full mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-end gap-8">
             <div class="flex gap-6 sm:gap-8">
-                <a href="#" class="text-xs font-semibold tracking-widest uppercase text-stone-500 hover:text-alabaster transition-colors">Instagram</a>
-                <a href="#" class="text-xs font-semibold tracking-widest uppercase text-stone-500 hover:text-alabaster transition-colors">Pinterest</a>
-                <a href="#" class="text-xs font-semibold tracking-widest uppercase text-stone-500 hover:text-alabaster transition-colors">Contact</a>
+                <a href="#" class="text-xs font-semibold tracking-widest uppercase text-pb-muted hover:text-pb-text transition-colors">Instagram</a>
+                <a href="#" class="text-xs font-semibold tracking-widest uppercase text-pb-muted hover:text-pb-text transition-colors">Pinterest</a>
+                <a href="#" class="text-xs font-semibold tracking-widest uppercase text-pb-muted hover:text-pb-text transition-colors">Contact</a>
             </div>
-            <div class="text-xs font-semibold tracking-widest uppercase text-stone-600">
+            <div class="text-xs font-semibold tracking-widest uppercase text-pb-muted">
                 &copy; 2026 For Members.
             </div>
         </div>
@@ -99,18 +136,18 @@
     <header class="flex-1 flex flex-col justify-end p-6 lg:p-10 pb-16 lg:pb-20 max-w-[1600px] mx-auto w-full">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-end">
             <div class="lg:col-span-8">
-                <div class="text-sm md:text-base font-semibold uppercase tracking-widest text-stone-400 mb-6">For Members.</div>
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium leading-[1.1] text-stone-900">
+                <div class="text-sm md:text-base font-semibold uppercase tracking-widest text-pb-faint mb-6">For Members.</div>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium leading-[1.1] text-pb-text">
                     Een digitale<br>
                     <span class="text-taupe italic font-normal">curated guide</span> voor<br>
                     luxe &amp; design.
                 </h1>
             </div>
             <div class="lg:col-span-4 flex flex-col gap-8">
-                <p class="text-base md:text-lg text-stone-600 font-light leading-relaxed">
+                <p class="text-base md:text-lg text-pb-muted font-light leading-relaxed">
                     For Members. is een private collectie met publieke finesse. Een high-end editorial atlas voor top hotels, verfijnde gastronomie en verborgen esthetiek wereldwijd.
                 </p>
-                <div class="flex items-center gap-4 text-xs font-medium uppercase tracking-widest text-stone-500">
+                <div class="flex items-center gap-4 text-xs font-medium uppercase tracking-widest text-pb-muted">
                     <span>Scroll om te ontdekken</span>
                     <iconify-icon icon="solar:arrow-down-linear" stroke-width="1.5" class="text-lg animate-bounce-down"></iconify-icon>
                 </div>
@@ -119,47 +156,47 @@
     </header>
 
     <!-- Concept Uitleg: 4 kolommen -->
-    <section class="bg-stone-100 border-t border-stone-200">
+    <section class="bg-pb-surface-alt border-t border-pb-border">
         <div class="max-w-[1600px] mx-auto p-6 lg:p-10 py-12 lg:py-16">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10">
 
                 <!-- Concept -->
                 <div class="flex flex-col gap-4">
-                    <div class="text-xs font-semibold uppercase tracking-widest text-stone-400">Concept</div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Concept</div>
                     <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">For Members.</h3>
-                    <p class="text-sm text-stone-500 font-light leading-relaxed">
+                    <p class="text-sm text-pb-muted font-light leading-relaxed">
                         Een private collectie van uitzonderlijke adressen wereldwijd. Geen algoritmes, geen advertenties &mdash; enkel persoonlijk gecureerde plekken die voldoen aan de hoogste standaarden van design, gastvrijheid en vakmanschap.
                     </p>
                 </div>
 
                 <!-- Filosofie -->
                 <div class="flex flex-col gap-4">
-                    <div class="text-xs font-semibold uppercase tracking-widest text-stone-400">Filosofie</div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Filosofie</div>
                     <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">Stille Luxe</h3>
-                    <p class="text-sm text-stone-500 font-light leading-relaxed">
+                    <p class="text-sm text-pb-muted font-light leading-relaxed">
                         Wij geloven in kwaliteit boven kwantiteit. Elke locatie in onze collectie is persoonlijk bezocht of zorgvuldig geselecteerd op basis van authenticiteit, esthetiek en een onvergetelijke ervaring. Minder is meer.
                     </p>
                 </div>
 
                 <!-- Ontdek -->
                 <div class="flex flex-col gap-4">
-                    <div class="text-xs font-semibold uppercase tracking-widest text-stone-400">Ontdek</div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Ontdek</div>
                     <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">Navigatie</h3>
-                    <div class="flex flex-col gap-2 text-sm text-stone-500 font-light">
+                    <div class="flex flex-col gap-2 text-sm text-pb-muted font-light">
                         <div class="flex items-start gap-2">
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-stone-400 mt-0.5 flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
                             <span>Blader per categorie</span>
                         </div>
                         <div class="flex items-start gap-2">
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-stone-400 mt-0.5 flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
                             <span>Ontdek per bestemming</span>
                         </div>
                         <div class="flex items-start gap-2">
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-stone-400 mt-0.5 flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
                             <span>Lees onze reviews</span>
                         </div>
                         <div class="flex items-start gap-2">
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-stone-400 mt-0.5 flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
                             <span>Ontvang de nieuwsbrief</span>
                         </div>
                     </div>
@@ -167,24 +204,24 @@
 
                 <!-- Categorieën -->
                 <div class="flex flex-col gap-4">
-                    <div class="text-xs font-semibold uppercase tracking-widest text-stone-400">Categorieën</div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Categorieën</div>
                     <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">De Collectie</h3>
                     <div class="grid grid-cols-2 gap-x-6 gap-y-4">
                         <div>
-                            <div class="text-sm font-medium text-stone-900">Sanctuary</div>
-                            <div class="text-xs text-stone-400 font-light">Hotels &amp; Retreats</div>
+                            <div class="text-sm font-medium text-pb-text">Sanctuary</div>
+                            <div class="text-xs text-pb-faint font-light">Hotels &amp; Retreats</div>
                         </div>
                         <div>
-                            <div class="text-sm font-medium text-stone-900">Table</div>
-                            <div class="text-xs text-stone-400 font-light">Gastronomie</div>
+                            <div class="text-sm font-medium text-pb-text">Table</div>
+                            <div class="text-xs text-pb-faint font-light">Gastronomie</div>
                         </div>
                         <div>
-                            <div class="text-sm font-medium text-stone-900">Atelier</div>
-                            <div class="text-xs text-stone-400 font-light">Design &amp; Objecten</div>
+                            <div class="text-sm font-medium text-pb-text">Atelier</div>
+                            <div class="text-xs text-pb-faint font-light">Design &amp; Objecten</div>
                         </div>
                         <div>
-                            <div class="text-sm font-medium text-stone-900">Canvas</div>
-                            <div class="text-xs text-stone-400 font-light">Destinaties</div>
+                            <div class="text-sm font-medium text-pb-text">Canvas</div>
+                            <div class="text-xs text-pb-faint font-light">Destinaties</div>
                         </div>
                     </div>
                 </div>
@@ -195,106 +232,106 @@
     </div>
 
     <!-- Horizontale categorie strip -->
-    <section class="pb-0 border-t border-stone-200 pt-4 lg:pt-6">
+    <section class="pb-0 border-t border-pb-border pt-4 lg:pt-6">
         <div class="overflow-x-auto scrollbar-hide select-none" id="topics-scroll">
             <div class="flex gap-4 lg:gap-6 pl-6 lg:pl-10" style="width: max-content;">
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=500" alt="Over Ons" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Over Ons</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Over Ons</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=500" alt="Shoppen" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Shoppen</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Shoppen</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&q=80&w=500" alt="Steden" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Steden</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Steden</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=500" alt="Design" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Design</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Design</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=500" alt="Inrichting" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Inrichting</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Inrichting</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=500" alt="Reizen" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Reizen</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Reizen</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=500" alt="Blog" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Blog</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Blog</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&q=80&w=500" alt="Tips" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Tips</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Tips</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=500" alt="Drie Sterren" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Drie Sterren</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Drie Sterren</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="ontdek.html" class="group flex-shrink-0 w-[220px] md:w-[280px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=500" alt="Luxe Thuis" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
-                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-stone-900">Luxe Thuis</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
+                            <h3 class="font-serif text-lg md:text-xl tracking-tight font-medium text-pb-text">Luxe Thuis</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
@@ -304,88 +341,88 @@
     </section>
 
     <!-- Nieuw Toegevoegd: 3 kolommen -->
-    <section id="nieuw-section" class="bg-stone-900 text-stone-50">
+    <section id="nieuw-section" class="bg-pb-deep text-pb-bg">
         <div class="max-w-[1600px] mx-auto p-6 lg:p-10 py-24 lg:py-40">
 
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
                 <div>
-                    <div class="text-xs font-semibold uppercase tracking-widest text-stone-500 mb-4">Uitgelicht</div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-muted mb-4">Uitgelicht</div>
                     <h2 class="font-serif text-4xl md:text-5xl tracking-tight font-medium">Nieuw For Members.</h2>
                 </div>
-                <a href="ontdek.html" class="text-sm font-medium text-stone-400 hover:text-alabaster transition-colors">Alles bekijken</a>
+                <a href="ontdek.html" class="text-sm font-medium text-pb-faint hover:text-pb-text transition-colors">Alles bekijken</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
 
                 <!-- Kolom 1: Nieuwe Categorieën -->
                 <div class="flex flex-col">
-                    <h3 class="text-xs font-semibold uppercase tracking-widest text-stone-500 pb-4 border-b border-stone-700 mb-6">Nieuwe Categorieën</h3>
+                    <h3 class="text-xs font-semibold uppercase tracking-widest text-pb-muted pb-4 border-b border-pb-border-strong mb-6">Nieuwe Categorieën</h3>
                     <div class="flex flex-col gap-5">
 
                         <a href="sanctuary.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=200" alt="Sanctuary" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Sanctuary</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Hotels &amp; Retreats</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Sanctuary</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Hotels &amp; Retreats</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="ontdek.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=200" alt="Table" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Table</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Fine Dining</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Table</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Fine Dining</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="ontdek.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=200" alt="Atelier" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Atelier</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Design &amp; Kunst</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Atelier</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Design &amp; Kunst</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="ontdek.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=80&w=200" alt="Canvas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Canvas</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Architectuur &amp; Destinaties</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Canvas</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Architectuur &amp; Destinaties</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="ontdek.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=200" alt="Voyage" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Voyage</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Reizen &amp; Ervaringen</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Voyage</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Reizen &amp; Ervaringen</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="ontdek.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=200" alt="Couture" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Couture</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Mode &amp; Vakmanschap</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Couture</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Mode &amp; Vakmanschap</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                     </div>
@@ -393,73 +430,73 @@
 
                 <!-- Kolom 2: Nieuwe Locaties -->
                 <div class="flex flex-col">
-                    <h3 class="text-xs font-semibold uppercase tracking-widest text-stone-500 pb-4 border-b border-stone-700 mb-6">Nieuwe Locaties</h3>
+                    <h3 class="text-xs font-semibold uppercase tracking-widest text-pb-muted pb-4 border-b border-pb-border-strong mb-6">Nieuwe Locaties</h3>
                     <div class="flex flex-col gap-5">
 
                         <a href="sanctuary-aman-tokyo.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="Aman Tokyo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Aman Tokyo</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Tokyo, Japan</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Aman Tokyo</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Tokyo, Japan</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="sanctuary-aman-tokyo.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg" alt="Ett Hem" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Ett Hem</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Stockholm, Zweden</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Ett Hem</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Stockholm, Zweden</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="sanctuary-aman-tokyo.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=200" alt="Noma" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Noma</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Kopenhagen, Denemarken</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Noma</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Kopenhagen, Denemarken</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="sanctuary-aman-tokyo.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/5bab247f-35d9-400d-a82b-fd87cfe913d2_1600w.webp" alt="La Réserve" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">La R&eacute;serve</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Parijs, Frankrijk</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">La R&eacute;serve</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Parijs, Frankrijk</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="sanctuary-aman-tokyo.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=200" alt="Amangiri" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Amangiri</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Utah, USA</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Amangiri</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Utah, USA</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="sanctuary-aman-tokyo.html" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=200" alt="The Siam" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">The Siam</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Bangkok, Thailand</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">The Siam</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Bangkok, Thailand</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                     </div>
@@ -467,73 +504,73 @@
 
                 <!-- Kolom 3: Nieuwe Tips -->
                 <div class="flex flex-col">
-                    <h3 class="text-xs font-semibold uppercase tracking-widest text-stone-500 pb-4 border-b border-stone-700 mb-6">Nieuwe Tips</h3>
+                    <h3 class="text-xs font-semibold uppercase tracking-widest text-pb-muted pb-4 border-b border-pb-border-strong mb-6">Nieuwe Tips</h3>
                     <div class="flex flex-col gap-5">
 
                         <a href="#" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=200" alt="Verborgen stranden" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Verborgen stranden</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Mediterraan</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Verborgen stranden</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Mediterraan</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="#" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=200" alt="Design hotels" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Scandinavisch design</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Interieur Guide</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Scandinavisch design</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Interieur Guide</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="#" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=80&w=200" alt="Weekend Parijs" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Weekend in Parijs</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">City Guide</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Weekend in Parijs</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">City Guide</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="#" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=200" alt="Minimalisme thuis" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Minimalisme thuis</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Wonen</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Minimalisme thuis</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Wonen</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="#" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=200" alt="Japanse tuinen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Japanse tuinen</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Natuur &amp; Rust</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Japanse tuinen</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Natuur &amp; Rust</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                         <a href="#" class="group flex items-center gap-4">
-                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-stone-800">
+                            <div class="w-14 h-14 flex-shrink-0 overflow-hidden bg-pb-deep">
                                 <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&q=80&w=200" alt="Onsen rituelen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-stone-300 transition-colors truncate">Onsen rituelen</h4>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-stone-500">Wellness Guide</span>
+                                <h4 class="font-serif text-base tracking-tight font-medium group-hover:text-pb-dim transition-colors truncate">Onsen rituelen</h4>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted">Wellness Guide</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-stone-600 group-hover:text-alabaster group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-lg text-pb-muted group-hover:text-pb-text group-hover:translate-x-1 transition-all flex-shrink-0"></iconify-icon>
                         </a>
 
                     </div>
@@ -544,12 +581,12 @@
     </section>
 
     <!-- Category Overview -->
-    <section class="bg-alabaster border-t border-stone-200">
+    <section class="bg-pb-bg border-t border-pb-border">
         <div class="max-w-[1600px] mx-auto p-6 lg:p-10 py-24 lg:py-40">
 
             <div class="text-center mb-20 max-w-2xl mx-auto">
-                <div class="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-4">Categorieën</div>
-                <h2 class="font-serif text-4xl md:text-5xl tracking-tight font-medium text-stone-900">
+                <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-4">Categorieën</div>
+                <h2 class="font-serif text-4xl md:text-5xl tracking-tight font-medium text-pb-text">
                     Verken enkele top<br>categorieën.
                 </h2>
             </div>
@@ -558,57 +595,57 @@
 
                 <!-- Sanctuary -->
                 <a href="sanctuary.html" class="group flex flex-col gap-3 md:gap-5">
-                    <div class="relative w-full aspect-square overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-square overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800" alt="Sanctuary" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="flex flex-col gap-1 md:gap-1.5">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-stone-900 pr-2">Sanctuary</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
+                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-pb-text pr-2">Sanctuary</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
                         </div>
-                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-stone-400 truncate">Boutique Hotels &amp; Retreats</span>
+                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-pb-faint truncate">Boutique Hotels &amp; Retreats</span>
                     </div>
                 </a>
 
                 <!-- Table -->
                 <a href="ontdek.html" class="group flex flex-col gap-3 md:gap-5">
-                    <div class="relative w-full aspect-square overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-square overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800" alt="Table" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="flex flex-col gap-1 md:gap-1.5">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-stone-900 pr-2">Table</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
+                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-pb-text pr-2">Table</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
                         </div>
-                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-stone-400 truncate">Fine Dining &amp; Gastronomie</span>
+                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-pb-faint truncate">Fine Dining &amp; Gastronomie</span>
                     </div>
                 </a>
 
                 <!-- Atelier -->
                 <a href="ontdek.html" class="group flex flex-col gap-3 md:gap-5">
-                    <div class="relative w-full aspect-square overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-square overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800" alt="Atelier" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="flex flex-col gap-1 md:gap-1.5">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-stone-900 pr-2">Atelier</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
+                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-pb-text pr-2">Atelier</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
                         </div>
-                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-stone-400 truncate">Design &amp; Kunst</span>
+                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-pb-faint truncate">Design &amp; Kunst</span>
                     </div>
                 </a>
 
                 <!-- Canvas -->
                 <a href="ontdek.html" class="group flex flex-col gap-3 md:gap-5">
-                    <div class="relative w-full aspect-square overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-square overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=80&w=800" alt="Canvas" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="flex flex-col gap-1 md:gap-1.5">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-stone-900 pr-2">Canvas</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
+                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-pb-text pr-2">Canvas</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
                         </div>
-                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-stone-400 truncate">Architectuur &amp; Destinaties</span>
+                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-pb-faint truncate">Architectuur &amp; Destinaties</span>
                     </div>
                 </a>
 
@@ -616,57 +653,57 @@
 
                 <!-- Voyage -->
                 <a href="ontdek.html" class="group flex flex-col gap-3 md:gap-5">
-                    <div class="relative w-full aspect-square overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-square overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800" alt="Voyage" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="flex flex-col gap-1 md:gap-1.5">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-stone-900 pr-2">Voyage</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
+                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-pb-text pr-2">Voyage</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
                         </div>
-                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-stone-400 truncate">Reizen &amp; Ervaringen</span>
+                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-pb-faint truncate">Reizen &amp; Ervaringen</span>
                     </div>
                 </a>
 
                 <!-- Maison -->
                 <a href="ontdek.html" class="group flex flex-col gap-3 md:gap-5">
-                    <div class="relative w-full aspect-square overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-square overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800" alt="Maison" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="flex flex-col gap-1 md:gap-1.5">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-stone-900 pr-2">Maison</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
+                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-pb-text pr-2">Maison</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
                         </div>
-                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-stone-400 truncate">Interieur &amp; Wonen</span>
+                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-pb-faint truncate">Interieur &amp; Wonen</span>
                     </div>
                 </a>
 
                 <!-- Jardin -->
                 <a href="ontdek.html" class="group flex flex-col gap-3 md:gap-5">
-                    <div class="relative w-full aspect-square overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-square overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=800" alt="Jardin" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="flex flex-col gap-1 md:gap-1.5">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-stone-900 pr-2">Jardin</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
+                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-pb-text pr-2">Jardin</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
                         </div>
-                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-stone-400 truncate">Natuur &amp; Tuinen</span>
+                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-pb-faint truncate">Natuur &amp; Tuinen</span>
                     </div>
                 </a>
 
                 <!-- Couture -->
                 <a href="ontdek.html" class="group flex flex-col gap-3 md:gap-5">
-                    <div class="relative w-full aspect-square overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-square overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=800" alt="Couture" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
                     </div>
                     <div class="flex flex-col gap-1 md:gap-1.5">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-stone-900 pr-2">Couture</h3>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
+                            <h3 class="font-serif text-sm sm:text-base md:text-2xl tracking-tight font-medium text-pb-text pr-2">Couture</h3>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0"></iconify-icon>
                         </div>
-                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-stone-400 truncate">Mode &amp; Vakmanschap</span>
+                        <span class="text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-pb-faint truncate">Mode &amp; Vakmanschap</span>
                     </div>
                 </a>
 
@@ -675,30 +712,30 @@
     </section>
 
     <!-- Landen — Ontdek per land -->
-    <section class="bg-alabaster border-t border-stone-200">
+    <section class="bg-pb-bg border-t border-pb-border">
         <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-12 lg:py-16">
             <div class="flex flex-row justify-between items-end mb-8 lg:mb-12">
                 <div>
-                    <div class="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-2">Bestemmingen</div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-2">Bestemmingen</div>
                     <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium">Ontdek per land</h2>
                 </div>
-                <a href="country.html" class="text-xs font-medium uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors">Alle landen &rarr;</a>
+                <a href="country.html" class="text-xs font-medium uppercase tracking-widest text-pb-faint hover:text-pb-text transition-colors">Alle landen &rarr;</a>
             </div>
 
             <a href="country.html" class="group block">
-                <div class="relative w-full overflow-hidden bg-stone-100" style="aspect-ratio: 21/9;">
+                <div class="relative w-full overflow-hidden bg-pb-surface-alt" style="aspect-ratio: 21/9;">
                     <img src="https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&q=80&w=2400" alt="Frankrijk" class="object-cover w-full h-full group-hover:scale-[1.02] transition-transform duration-700 ease-in-out">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8 items-end">
                     <div class="md:col-span-8">
-                        <div class="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-2">Land &middot; Europa</div>
-                        <h3 class="font-serif text-4xl md:text-6xl tracking-tight font-medium leading-[1.05] text-stone-900">
+                        <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-2">Land &middot; Europa</div>
+                        <h3 class="font-serif text-4xl md:text-6xl tracking-tight font-medium leading-[1.05] text-pb-text">
                             Frankrijk<span class="italic font-normal text-taupe">.</span>
                         </h3>
                     </div>
                     <div class="md:col-span-3 md:col-start-10 flex flex-col gap-2 items-start md:items-end">
-                        <span class="text-xs font-semibold uppercase tracking-widest text-stone-400">1 stad actief &middot; 16 adressen</span>
-                        <span class="inline-flex items-center gap-3 text-sm font-medium group-hover:gap-4 transition-all text-stone-900">
+                        <span class="text-xs font-semibold uppercase tracking-widest text-pb-faint">1 stad actief &middot; 16 adressen</span>
+                        <span class="inline-flex items-center gap-3 text-sm font-medium group-hover:gap-4 transition-all text-pb-text">
                             <span>Bekijk het land</span>
                             <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" style="font-size:18px"></iconify-icon>
                         </span>
@@ -709,14 +746,14 @@
     </section>
 
     <!-- Steden Horizontaal Scroll -->
-    <section class="border-t border-stone-200 bg-stone-100">
+    <section class="border-t border-pb-border bg-pb-surface-alt">
         <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-12 lg:py-16">
             <div class="flex flex-row justify-between items-end">
                 <div>
-                    <div class="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-2">Bestemmingen</div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-2">Bestemmingen</div>
                     <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium">Ontdek per stad</h2>
                 </div>
-                <div class="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-stone-400">
+                <div class="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-pb-faint">
                     <span>Scroll</span>
                     <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-base animate-arrow-nudge"></iconify-icon>
                 </div>
@@ -726,118 +763,118 @@
             <div class="flex gap-4 lg:gap-6 pl-6 lg:pl-10 pb-12 lg:pb-16" style="width: max-content;">
 
                 <a href="city.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1591622820050-bb05a8a82036?auto=format&fit=crop&q=80&w=600" alt="Lyon" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Lyon</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Frankrijk</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Lyon</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Frankrijk</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="coming-soon.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&q=80&w=600" alt="Tokyo" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Tokyo</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Japan</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Tokyo</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Japan</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="coming-soon.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=80&w=600" alt="Parijs" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Parijs</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Frankrijk</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Parijs</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Frankrijk</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="coming-soon.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80&w=600" alt="Stockholm" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Stockholm</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Zweden</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Stockholm</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Zweden</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="coming-soon.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&q=80&w=600" alt="Kopenhagen" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Kopenhagen</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Denemarken</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Kopenhagen</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Denemarken</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="coming-soon.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&q=80&w=600" alt="Milaan" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Milaan</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Italië</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Milaan</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Italië</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="coming-soon.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&q=80&w=600" alt="Marrakech" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Marrakech</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Marokko</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Marrakech</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Marokko</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="coming-soon.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&q=80&w=600" alt="Sydney" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Sydney</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Australië</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Sydney</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Australië</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
 
                 <a href="coming-soon.html" class="group flex-shrink-0 w-[260px] md:w-[320px]">
-                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-stone-100">
+                    <div class="relative w-full aspect-[3/4] overflow-hidden bg-pb-surface-alt">
                         <img src="https://images.unsplash.com/photo-1555992336-fb0d29498b13?auto=format&fit=crop&q=80&w=600" alt="Lissabon" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-in-out">
-                        <div class="absolute bottom-6 left-0 right-0 bg-white/40 backdrop-blur-md px-4 py-3 flex justify-between items-start">
+                        <div class="absolute bottom-6 left-0 right-0 backdrop-blur-md px-4 py-3 flex justify-between items-start" style="background:rgba(253,252,251,0.55);">
                             <div>
-                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-stone-900">Lissabon</h3>
-                                <span class="text-[10px] font-semibold uppercase tracking-widest text-white mt-0.5 block">Portugal</span>
+                                <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium text-pb-text">Lissabon</h3>
+                                <span class="text-[10px] font-semibold uppercase tracking-widest text-pb-muted mt-0.5 block">Portugal</span>
                             </div>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-white group-hover:text-stone-900 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm md:text-xl text-pb-faint group-hover:text-pb-text group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1"></iconify-icon>
                         </div>
                     </div>
                 </a>
@@ -847,39 +884,39 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-stone-100 pt-24 pb-12 px-6 lg:px-10">
+    <footer class="bg-pb-surface-alt pt-24 pb-12 px-6 lg:px-10">
         <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-8 mb-24">
             <div class="md:col-span-5 flex flex-col items-start gap-8">
                 <div class="font-sans font-semibold tracking-tighter text-2xl uppercase">
                     For Members.
                 </div>
-                <p class="text-sm text-stone-500 font-light leading-relaxed max-w-sm">
+                <p class="text-sm text-pb-muted font-light leading-relaxed max-w-sm">
                     Een doorlopende verzameling van uitmuntendheid in design, gastvrijheid en esthetiek. Curated by Peter &amp; Birgit.
                 </p>
             </div>
             <div class="md:col-span-2 flex flex-col gap-4">
-                <div class="text-xs font-semibold uppercase tracking-widest text-stone-900 mb-2">Index</div>
-                <a href="sanctuary.html" class="text-sm text-stone-500 hover:text-stone-900 transition-colors">Sanctuary</a>
-                <a href="#" class="text-sm text-stone-500 hover:text-stone-900 transition-colors">Table</a>
-                <a href="#" class="text-sm text-stone-500 hover:text-stone-900 transition-colors">Atelier</a>
-                <a href="#" class="text-sm text-stone-500 hover:text-stone-900 transition-colors">Canvas</a>
+                <div class="text-xs font-semibold uppercase tracking-widest text-pb-text mb-2">Index</div>
+                <a href="sanctuary.html" class="text-sm text-pb-muted hover:text-pb-text transition-colors">Sanctuary</a>
+                <a href="#" class="text-sm text-pb-muted hover:text-pb-text transition-colors">Table</a>
+                <a href="#" class="text-sm text-pb-muted hover:text-pb-text transition-colors">Atelier</a>
+                <a href="#" class="text-sm text-pb-muted hover:text-pb-text transition-colors">Canvas</a>
             </div>
             <div class="md:col-span-5 flex flex-col gap-4">
-                <div class="text-xs font-semibold uppercase tracking-widest text-stone-900 mb-2">Private Newsletter</div>
-                <p class="text-sm text-stone-500 font-light mb-2">Ontvang exclusieve toevoegingen aan de collectie direct in je inbox. Geen spam, enkel esthetiek.</p>
+                <div class="text-xs font-semibold uppercase tracking-widest text-pb-text mb-2">Private Newsletter</div>
+                <p class="text-sm text-pb-muted font-light mb-2">Ontvang exclusieve toevoegingen aan de collectie direct in je inbox. Geen spam, enkel esthetiek.</p>
                 <div class="relative w-full max-w-md">
-                    <input type="email" placeholder="Jouw emailadres..." class="w-full bg-transparent border-b border-stone-300 py-3 pr-10 text-sm focus:outline-none focus:border-stone-900 transition-colors placeholder:text-stone-400">
-                    <button class="absolute right-0 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-900 transition-colors">
+                    <input type="email" placeholder="Jouw emailadres..." class="w-full bg-transparent border-b border-pb-border-mid py-3 pr-10 text-sm focus:outline-none focus:border-pb-text transition-colors placeholder:text-pb-faint">
+                    <button class="absolute right-0 top-1/2 -translate-y-1/2 text-pb-faint hover:text-pb-text transition-colors">
                         <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-xl"></iconify-icon>
                     </button>
                 </div>
             </div>
         </div>
-        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-stone-200 text-xs text-stone-400 font-light">
+        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-pb-border text-xs text-pb-faint font-light">
             <p>&copy; 2026 For Members. Curated by Peter &amp; Birgit.</p>
             <div class="flex gap-6 mt-4 md:mt-0">
-                <a href="#" class="hover:text-stone-900 transition-colors">Instagram</a>
-                <a href="#" class="hover:text-stone-900 transition-colors">Pinterest</a>
+                <a href="#" class="hover:text-pb-text transition-colors">Instagram</a>
+                <a href="#" class="hover:text-pb-text transition-colors">Pinterest</a>
             </div>
         </div>
     </footer>
