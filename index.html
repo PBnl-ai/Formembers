@@ -58,7 +58,7 @@ img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubi
 #nieuw-section .group:hover .group-hover\:text-pb-text{color:#f4f2ef;}
 
 /* ===== Nav blur — drifting taupe aurora behind glass ===== */
-nav.fm-nav-bar { position: relative; overflow: hidden; }
+nav.fm-nav-bar { overflow: hidden; }
 nav.fm-nav-bar::before {
   content: '';
   position: absolute;
@@ -89,6 +89,33 @@ nav.fm-nav-bar > * { position: relative; z-index: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   nav.fm-nav-bar::before { animation: none; }
+}
+/* Mobiel: drift uit (voorkomt flicker op iOS Safari met dubbele blur-stack) */
+@media (max-width: 767px) {
+  nav.fm-nav-bar::before { animation: none; opacity: 0.6; }
+}
+
+/* Hero image — op mobiel lucht weg, focus op onderkant (doorgaan-gevoel) */
+@media (max-width: 767px) {
+  .fm-hero-mobile-up { object-position: 50% 85%; }
+}
+
+/* Collapsible sections op mobiel — body verborgen, pijl opent (grid-rows truc voor smooth height anim) */
+.fm-collapsible-trigger { cursor: pointer; user-select: none; }
+.fm-collapsible-trigger .fm-arrow { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+.fm-collapsible.fm-open .fm-collapsible-trigger .fm-arrow { transform: rotate(90deg); }
+.fm-collapsible-body {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.fm-collapsible-body > .fm-collapsible-inner { overflow: hidden; min-height: 0; }
+@media (max-width: 767px) {
+  .fm-collapsible:not(.fm-open) .fm-collapsible-body { grid-template-rows: 0fr; }
+}
+@media (min-width: 768px) {
+  .fm-collapsible-trigger { cursor: default; pointer-events: none; }
+  .fm-collapsible-trigger .fm-arrow { display: none; }
 }
 </style>
 </head>
@@ -200,7 +227,7 @@ nav.fm-nav-bar > * { position: relative; z-index: 1; }
 
     <!-- Hero image — top, full-bleed, full-width. Klikbaar naar country.html. -->
     <a href="country.html" class="group block relative w-full overflow-hidden" style="background:var(--surface-alt); height: clamp(320px, 50vh, 640px);" aria-label="Begin in Frankrijk">
-        <img src="assets/hero-index.jpg" alt="Skyline bij vroege ochtend" class="fm-image w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-700" loading="eager">
+        <img src="assets/hero-index.jpg" alt="Skyline bij vroege ochtend" class="fm-image fm-hero-mobile-up w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-700" loading="eager">
     </a>
 
     <!-- Hero tekst direct onder image — tekst meteen in beeld na de fold -->
@@ -233,67 +260,103 @@ nav.fm-nav-bar > * { position: relative; z-index: 1; }
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10">
 
                 <!-- Concept -->
-                <div class="flex flex-col gap-4">
-                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Concept</div>
-                    <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">For Members.</h3>
-                    <p class="text-sm text-pb-muted font-light leading-relaxed">
-                        Een private collectie van uitzonderlijke adressen wereldwijd. Geen algoritmes, geen advertenties &mdash; enkel persoonlijk gecureerde plekken die voldoen aan de hoogste standaarden van design, gastvrijheid en vakmanschap.
-                    </p>
+                <div class="fm-collapsible flex flex-col">
+                    <button type="button" class="fm-collapsible-trigger flex items-start justify-between gap-3 text-left w-full" aria-expanded="false">
+                        <div class="flex flex-col gap-3">
+                            <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Concept</div>
+                            <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">For Members.</h3>
+                        </div>
+                        <iconify-icon class="fm-arrow text-pb-faint mt-2 flex-shrink-0" icon="solar:arrow-right-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+                    </button>
+                    <div class="fm-collapsible-body">
+                        <div class="fm-collapsible-inner pt-4">
+                            <p class="text-sm text-pb-muted font-light leading-relaxed">
+                                Een private collectie van uitzonderlijke adressen wereldwijd. Geen algoritmes, geen advertenties &mdash; enkel persoonlijk gecureerde plekken die voldoen aan de hoogste standaarden van design, gastvrijheid en vakmanschap.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Filosofie -->
-                <div class="flex flex-col gap-4">
-                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Filosofie</div>
-                    <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">Stille Luxe</h3>
-                    <p class="text-sm text-pb-muted font-light leading-relaxed">
-                        Wij geloven in kwaliteit boven kwantiteit. Elke locatie in onze collectie is persoonlijk bezocht of zorgvuldig geselecteerd op basis van authenticiteit, esthetiek en een onvergetelijke ervaring. Minder is meer.
-                    </p>
+                <div class="fm-collapsible flex flex-col">
+                    <button type="button" class="fm-collapsible-trigger flex items-start justify-between gap-3 text-left w-full" aria-expanded="false">
+                        <div class="flex flex-col gap-3">
+                            <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Filosofie</div>
+                            <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">Stille Luxe</h3>
+                        </div>
+                        <iconify-icon class="fm-arrow text-pb-faint mt-2 flex-shrink-0" icon="solar:arrow-right-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+                    </button>
+                    <div class="fm-collapsible-body">
+                        <div class="fm-collapsible-inner pt-4">
+                            <p class="text-sm text-pb-muted font-light leading-relaxed">
+                                Wij geloven in kwaliteit boven kwantiteit. Elke locatie in onze collectie is persoonlijk bezocht of zorgvuldig geselecteerd op basis van authenticiteit, esthetiek en een onvergetelijke ervaring. Minder is meer.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Ontdek -->
-                <div class="flex flex-col gap-4">
-                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Ontdek</div>
-                    <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">Navigatie</h3>
-                    <div class="flex flex-col gap-2 text-sm text-pb-muted font-light">
-                        <div class="flex items-start gap-2">
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
-                            <span>Blader per categorie</span>
+                <div class="fm-collapsible flex flex-col">
+                    <button type="button" class="fm-collapsible-trigger flex items-start justify-between gap-3 text-left w-full" aria-expanded="false">
+                        <div class="flex flex-col gap-3">
+                            <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Ontdek</div>
+                            <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">Navigatie</h3>
                         </div>
-                        <div class="flex items-start gap-2">
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
-                            <span>Ontdek per bestemming</span>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
-                            <span>Lees onze reviews</span>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
-                            <span>Ontvang de nieuwsbrief</span>
+                        <iconify-icon class="fm-arrow text-pb-faint mt-2 flex-shrink-0" icon="solar:arrow-right-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+                    </button>
+                    <div class="fm-collapsible-body">
+                        <div class="fm-collapsible-inner pt-4">
+                            <div class="flex flex-col gap-2 text-sm text-pb-muted font-light">
+                                <div class="flex items-start gap-2">
+                                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
+                                    <span>Blader per categorie</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
+                                    <span>Ontdek per bestemming</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
+                                    <span>Lees onze reviews</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-sm text-pb-faint mt-0.5 flex-shrink-0"></iconify-icon>
+                                    <span>Ontvang de nieuwsbrief</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Categorieën -->
-                <div class="flex flex-col gap-4">
-                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Categorieën</div>
-                    <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">De Collectie</h3>
-                    <div class="grid grid-cols-2 gap-x-6 gap-y-4">
-                        <div>
-                            <div class="text-sm font-medium text-pb-text">Sanctuary</div>
-                            <div class="text-xs text-pb-faint font-light">Hotels &amp; Retreats</div>
+                <div class="fm-collapsible flex flex-col">
+                    <button type="button" class="fm-collapsible-trigger flex items-start justify-between gap-3 text-left w-full" aria-expanded="false">
+                        <div class="flex flex-col gap-3">
+                            <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint">Categorieën</div>
+                            <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium">De Collectie</h3>
                         </div>
-                        <div>
-                            <div class="text-sm font-medium text-pb-text">Table</div>
-                            <div class="text-xs text-pb-faint font-light">Gastronomie</div>
-                        </div>
-                        <div>
-                            <div class="text-sm font-medium text-pb-text">Atelier</div>
-                            <div class="text-xs text-pb-faint font-light">Design &amp; Objecten</div>
-                        </div>
-                        <div>
-                            <div class="text-sm font-medium text-pb-text">Canvas</div>
-                            <div class="text-xs text-pb-faint font-light">Destinaties</div>
+                        <iconify-icon class="fm-arrow text-pb-faint mt-2 flex-shrink-0" icon="solar:arrow-right-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+                    </button>
+                    <div class="fm-collapsible-body">
+                        <div class="fm-collapsible-inner pt-4">
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+                                <div>
+                                    <div class="text-sm font-medium text-pb-text">Sanctuary</div>
+                                    <div class="text-xs text-pb-faint font-light">Hotels &amp; Retreats</div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-pb-text">Table</div>
+                                    <div class="text-xs text-pb-faint font-light">Gastronomie</div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-pb-text">Atelier</div>
+                                    <div class="text-xs text-pb-faint font-light">Design &amp; Objecten</div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-pb-text">Canvas</div>
+                                    <div class="text-xs text-pb-faint font-light">Destinaties</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1147,6 +1210,16 @@ nav.fm-nav-bar > * { position: relative; z-index: 1; }
             }, { threshold: 0.15 });
             columns.forEach(col => observer.observe(col));
         }
+
+        // Collapsible sections (mobiel)
+        document.querySelectorAll('.fm-collapsible-trigger').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                if (window.innerWidth >= 768) return;
+                var parent = btn.closest('.fm-collapsible');
+                var isOpen = parent.classList.toggle('fm-open');
+                btn.setAttribute('aria-expanded', String(isOpen));
+            });
+        });
     </script>
 
 </body>

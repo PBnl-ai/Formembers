@@ -37,7 +37,7 @@ img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubi
 .fm-route-line{stroke-dasharray:4 4;animation:fm-route-dash 1.2s linear infinite;}
 
 /* ===== Nav blur — drifting taupe aurora behind glass ===== */
-nav.fm-nav-bar { position: relative; overflow: hidden; }
+nav.fm-nav-bar { overflow: hidden; }
 nav.fm-nav-bar::before {
   content: '';
   position: absolute;
@@ -68,6 +68,10 @@ nav.fm-nav-bar > * { position: relative; z-index: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   nav.fm-nav-bar::before { animation: none; }
+}
+/* Mobiel: drift uit (voorkomt flicker op iOS Safari met dubbele blur-stack) */
+@media (max-width: 767px) {
+  nav.fm-nav-bar::before { animation: none; opacity: 0.6; }
 }
 </style>
 </head>
