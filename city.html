@@ -150,13 +150,47 @@ img.fm-image { transition: filter 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7
 [data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
 [data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); }
 [data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.15); }
+
+/* ===== Nav blur — drifting taupe aurora behind glass ===== */
+nav.fm-nav-bar { position: relative; overflow: hidden; }
+nav.fm-nav-bar::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background:
+    radial-gradient(ellipse 38% 55% at 15% 50%, rgba(175,162,151,0.32), transparent 62%),
+    radial-gradient(ellipse 32% 50% at 55% 25%, rgba(175,162,151,0.22), transparent 65%),
+    radial-gradient(ellipse 36% 55% at 85% 75%, rgba(175,162,151,0.18), transparent 65%),
+    radial-gradient(ellipse 28% 45% at 40% 80%, rgba(175,162,151,0.14), transparent 70%);
+  filter: blur(36px);
+  animation: fmNavDrift 22s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+nav.fm-nav-bar > * { position: relative; z-index: 1; }
+@keyframes fmNavDrift {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  25%      { transform: translate(8%, -3%) scale(1.06); }
+  50%      { transform: translate(-5%, 4%) scale(0.97); }
+  75%      { transform: translate(-7%, -2%) scale(1.04); }
+}
+[data-theme="dark"] nav.fm-nav-bar::before {
+  background:
+    radial-gradient(ellipse 38% 55% at 15% 50%, rgba(175,162,151,0.24), transparent 62%),
+    radial-gradient(ellipse 32% 50% at 55% 25%, rgba(175,162,151,0.16), transparent 65%),
+    radial-gradient(ellipse 36% 55% at 85% 75%, rgba(175,162,151,0.14), transparent 65%),
+    radial-gradient(ellipse 28% 45% at 40% 80%, rgba(175,162,151,0.10), transparent 70%);
+}
+@media (prefers-reduced-motion: reduce) {
+  nav.fm-nav-bar::before { animation: none; }
+}
 </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden">
 
 <!-- ───── Theme toggle ───── -->
 <!-- ───── Navigatie (fixed, blur) ───── -->
-<nav class="fixed top-0 w-full z-50 pointer-events-none" style="background:rgba(244,242,239,0.5);backdrop-filter:blur(12px);">
+<nav class="fixed top-0 w-full z-50 pointer-events-none fm-nav-bar" style="background:rgba(244,242,239,0.5);backdrop-filter:blur(12px);">
   <div class="p-6 lg:p-10 flex justify-between items-center">
     <div class="flex items-center gap-4 lg:gap-6 pointer-events-auto flex-1 max-w-[640px]">
       <button id="menu-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity flex-shrink-0" aria-label="Menu" style="color:var(--text);">
