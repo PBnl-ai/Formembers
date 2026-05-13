@@ -164,10 +164,10 @@ img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubi
         </div>
     </div>
 
-    <!-- Hero image — top, full-bleed, full-width. Nav komt er transparant overheen. -->
-    <div class="relative w-full overflow-hidden" style="background:var(--surface-alt); height: clamp(320px, 50vh, 640px);">
-        <img src="assets/hero-index.jpg" alt="Skyline bij vroege ochtend" class="fm-image w-full h-full object-cover" loading="eager">
-    </div>
+    <!-- Hero image — top, full-bleed, full-width. Klikbaar naar country.html. -->
+    <a href="country.html" class="group block relative w-full overflow-hidden" style="background:var(--surface-alt); height: clamp(320px, 50vh, 640px);" aria-label="Begin in Frankrijk">
+        <img src="assets/hero-index.jpg" alt="Skyline bij vroege ochtend" class="fm-image w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-700" loading="eager">
+    </a>
 
     <!-- Hero tekst direct onder image — tekst meteen in beeld na de fold -->
     <div>
@@ -617,6 +617,40 @@ img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubi
             </div>
         </div>
     </section>
+    <!-- Landen — Ontdek per land -->
+    <section class="bg-pb-bg border-t border-pb-border">
+        <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-12 lg:py-16">
+            <div class="flex flex-row justify-between items-end mb-8 lg:mb-12">
+                <div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-2">Bestemmingen</div>
+                    <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium">Ontdek per land</h2>
+                </div>
+                <a href="country.html" class="text-xs font-medium uppercase tracking-widest text-pb-faint hover:text-pb-text transition-colors">Alle landen &rarr;</a>
+            </div>
+
+            <a href="country.html" class="group block">
+                <div class="relative w-full overflow-hidden bg-pb-surface-alt" style="aspect-ratio: 21/9;">
+                    <img src="https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&q=80&w=2400" alt="Frankrijk" class="object-cover w-full h-full group-hover:scale-[1.02] transition-transform duration-700 ease-in-out">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8 items-end">
+                    <div class="md:col-span-8">
+                        <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-2">Land &middot; Europa</div>
+                        <h3 class="font-serif text-4xl md:text-6xl tracking-tight font-medium leading-[1.05] text-pb-text">
+                            Frankrijk<span class="italic font-normal text-taupe">.</span>
+                        </h3>
+                    </div>
+                    <div class="md:col-span-3 md:col-start-10 flex flex-col gap-2 items-start md:items-end">
+                        <span class="text-xs font-semibold uppercase tracking-widest text-pb-faint">1 stad actief &middot; 16 adressen</span>
+                        <span class="inline-flex items-center gap-3 text-sm font-medium group-hover:gap-4 transition-all text-pb-text">
+                            <span>Bekijk het land</span>
+                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" style="font-size:18px"></iconify-icon>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
 
     <!-- Category Overview -->
     <section class="bg-pb-bg border-t border-pb-border">
@@ -748,41 +782,6 @@ img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubi
             </div>
         </div>
     </section>
-
-    <!-- Landen — Ontdek per land -->
-    <section class="bg-pb-bg border-t border-pb-border">
-        <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-12 lg:py-16">
-            <div class="flex flex-row justify-between items-end mb-8 lg:mb-12">
-                <div>
-                    <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-2">Bestemmingen</div>
-                    <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium">Ontdek per land</h2>
-                </div>
-                <a href="country.html" class="text-xs font-medium uppercase tracking-widest text-pb-faint hover:text-pb-text transition-colors">Alle landen &rarr;</a>
-            </div>
-
-            <a href="country.html" class="group block">
-                <div class="relative w-full overflow-hidden bg-pb-surface-alt" style="aspect-ratio: 21/9;">
-                    <img src="https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&q=80&w=2400" alt="Frankrijk" class="object-cover w-full h-full group-hover:scale-[1.02] transition-transform duration-700 ease-in-out">
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8 items-end">
-                    <div class="md:col-span-8">
-                        <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-2">Land &middot; Europa</div>
-                        <h3 class="font-serif text-4xl md:text-6xl tracking-tight font-medium leading-[1.05] text-pb-text">
-                            Frankrijk<span class="italic font-normal text-taupe">.</span>
-                        </h3>
-                    </div>
-                    <div class="md:col-span-3 md:col-start-10 flex flex-col gap-2 items-start md:items-end">
-                        <span class="text-xs font-semibold uppercase tracking-widest text-pb-faint">1 stad actief &middot; 16 adressen</span>
-                        <span class="inline-flex items-center gap-3 text-sm font-medium group-hover:gap-4 transition-all text-pb-text">
-                            <span>Bekijk het land</span>
-                            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" style="font-size:18px"></iconify-icon>
-                        </span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
     <!-- Steden Horizontaal Scroll -->
     <section class="border-t border-pb-border bg-pb-surface-alt">
         <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-12 lg:py-16">

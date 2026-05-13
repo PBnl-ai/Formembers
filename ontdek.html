@@ -48,33 +48,42 @@ img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubi
 </head>
 <body class="font-sans antialiased overflow-x-hidden">
 
-<button class="theme-toggle" onclick="var c=document.documentElement.getAttribute('data-theme');var n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('fm-theme',n);" aria-label="Wissel thema">
-  <iconify-icon class="show-dark" icon="solar:sun-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
-  <iconify-icon class="show-light" icon="solar:moon-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
-</button>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 p-6 lg:p-10 flex justify-between items-center pointer-events-none" style="background:rgba(244,242,239,0.5);backdrop-filter:blur(12px);">
-        <div class="pointer-events-auto">
-            <button id="menu-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-            </button>
-        </div>
-        <a href="index.html" class="absolute left-1/2 -translate-x-1/2 pointer-events-auto cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-10 lg:h-16" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
-        </a>
-        <div class="flex gap-8 items-center pointer-events-auto">
-            <form class="hidden md:flex items-center relative" onsubmit="return false;" role="search">
-                <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" class="absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none text-pb-faint" style="font-size:14px;"></iconify-icon>
-                <input type="search" placeholder="Zoek een plek, stad of categorie…" aria-label="Zoek" class="w-44 lg:w-64 bg-transparent py-1.5 pl-7 pr-2 text-sm focus:outline-none border-b border-pb-border-mid text-pb-text placeholder:text-pb-faint">
-            </form>
-            <button type="button" class="md:hidden flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Zoek" onclick="alert('Zoek volgt in v0.2');">
-                <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" style="font-size:22px"></iconify-icon>
-            </button>
-            <a href="ontdek.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity hidden md:block">Ontdek</a>
-            <a href="atlas.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity">Mijn Atlas</a>
-        </div>
-    </nav>
+<!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 pointer-events-none" style="background:rgba(244,242,239,0.5);backdrop-filter:blur(12px);">
+  <div class="p-6 lg:p-10 flex justify-between items-center">
+    <div class="flex items-center gap-4 lg:gap-6 pointer-events-auto flex-1 max-w-[640px]">
+      <button id="menu-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity flex-shrink-0" aria-label="Menu" style="color:var(--text);">
+        <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5" style="font-size:28px"></iconify-icon>
+      </button>
+      <form class="hidden md:flex items-center relative flex-1 max-w-[480px]" onsubmit="return false;" role="search">
+        <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-pb-faint" style="font-size:18px;"></iconify-icon>
+        <input type="search" placeholder="Zoek een plek, stad of categorie…" aria-label="Zoek" class="w-full bg-pb-surface border border-pb-border-mid py-3 pl-12 pr-4 text-base focus:outline-none focus:border-pb-text text-pb-text placeholder:text-pb-faint transition-colors">
+      </form>
+    </div>
+    <a href="index.html" class="absolute left-1/2 -translate-x-1/2 pointer-events-auto" aria-label="For Members. Home" style="color:var(--text);">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-10 lg:h-16" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+    </a>
+    <div class="flex gap-4 lg:gap-6 items-center pointer-events-auto" style="color:var(--text);">
+      <button id="search-btn-mobile" type="button" class="md:hidden flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Zoek">
+        <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" style="font-size:22px"></iconify-icon>
+      </button>
+      <a href="ontdek.html" class="flex items-center hover:opacity-50 transition-opacity" aria-label="Ontdek">
+        <span class="text-sm font-medium tracking-wide uppercase hidden md:inline">Ontdek</span>
+        <iconify-icon icon="solar:compass-linear" stroke-width="1.5" class="md:hidden" style="font-size:22px"></iconify-icon>
+      </a>
+      <a href="atlas.html" class="flex items-center hover:opacity-50 transition-opacity" aria-label="Mijn Atlas">
+        <span class="text-sm font-medium tracking-wide uppercase hidden md:inline">Mijn Atlas</span>
+        <iconify-icon icon="solar:bookmark-linear" stroke-width="1.5" class="md:hidden" style="font-size:22px"></iconify-icon>
+      </a>
+    </div>
+  </div>
+  <div id="search-dropdown-mobile" class="md:hidden hidden px-6 pb-6 pointer-events-auto" style="border-top:1px solid var(--border);">
+    <form class="relative pt-4" onsubmit="return false;" role="search">
+      <iconify-icon icon="solar:magnifer-linear" stroke-width="1.5" class="absolute left-3 top-[calc(50%+8px)] -translate-y-1/2 pointer-events-none text-pb-faint" style="font-size:18px;"></iconify-icon>
+      <input id="search-input-mobile" type="search" placeholder="Zoek een plek, stad of categorie…" aria-label="Zoek" class="w-full bg-pb-surface border border-pb-border-mid py-3 pl-11 pr-3 text-base focus:outline-none focus:border-pb-text text-pb-text placeholder:text-pb-faint transition-colors">
+    </form>
+  </div>
+</nav>
 
     <!-- Fullscreen Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 z-[60] opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col" style="background:var(--bg-deep);transition-timing-function:cubic-bezier(0.16,1,0.3,1);">
@@ -124,7 +133,13 @@ img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubi
                 <a href="#" class="text-xs font-semibold tracking-widest uppercase text-pb-muted hover:text-pb-text transition-colors">Instagram</a>
                 <a href="#" class="text-xs font-semibold tracking-widest uppercase text-pb-muted hover:text-pb-text transition-colors">Pinterest</a>
                 <a href="#" class="text-xs font-semibold tracking-widest uppercase text-pb-muted hover:text-pb-text transition-colors">Contact</a>
-            </div>
+            <button id="theme-toggle-menu" type="button" class="flex items-center gap-2 text-xs font-semibold tracking-widest uppercase hover:opacity-70 transition-opacity" aria-label="Wissel thema" style="color:var(--text-muted);">
+        <iconify-icon class="show-dark" icon="solar:sun-linear" stroke-width="1.5" style="font-size:16px"></iconify-icon>
+        <iconify-icon class="show-light" icon="solar:moon-linear" stroke-width="1.5" style="font-size:16px"></iconify-icon>
+        <span class="show-dark">Light mode</span>
+        <span class="show-light">Dark mode</span>
+      </button>
+    </div>
             <div class="text-xs font-semibold tracking-widest uppercase text-pb-muted">
                 &copy; 2026 For Members.
             </div>
@@ -580,7 +595,33 @@ img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubi
         closeBtn.addEventListener('click', () => {
             menu.classList.add('opacity-0', 'pointer-events-none');
         });
-    </script>
+    
+// Mobile search dropdown
+(function(){
+  var btn = document.getElementById('search-btn-mobile');
+  var drop = document.getElementById('search-dropdown-mobile');
+  if (!btn || !drop) return;
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var wasHidden = drop.classList.contains('hidden');
+    drop.classList.toggle('hidden');
+    if (wasHidden){ var inp = document.getElementById('search-input-mobile'); if (inp) setTimeout(function(){ inp.focus(); }, 50); }
+  });
+  document.addEventListener('click', function(e){ if (!drop.contains(e.target) && !btn.contains(e.target)) drop.classList.add('hidden'); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') drop.classList.add('hidden'); });
+})();
+// Theme toggle in menu (vervangt fixed top-right knop)
+(function(){
+  var btn = document.getElementById('theme-toggle-menu');
+  if (!btn) return;
+  btn.addEventListener('click', function(){
+    var c = document.documentElement.getAttribute('data-theme');
+    var n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('fm-theme', n);
+  });
+})();
+</script>
 
 </body>
 </html>
