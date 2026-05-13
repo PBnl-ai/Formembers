@@ -1,30 +1,59 @@
 <!DOCTYPE html>
-<!-- v0.1 — 13 mei 2026 — stub voor Mijn Atlas. Hero + 'Volgt in v0.2'. -->
+<!-- v0.1 — 13 mei 2026 — Mijn Atlas, dynamisch gerenderd uit localStorage (fm-saved-entries, fm-status-*, fm-note-*). Frankrijk SVG-kaart met pins op saved entries, bewaard-grid, status-secties (wishlist/visited/favorite), notitie-overzicht, lists-stub. Empty-state als geen data. ENTRIES registry hardcoded inline. -->
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mijn Atlas | For Members.</title>
 <meta name="robots" content="noindex, nofollow">
-<script>(function(){var t=localStorage.getItem('fm-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+<script>
+(function(){
+  var t = localStorage.getItem('fm-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config = { darkMode: ['class', '[data-theme="dark"]'], theme: { extend: { colors: { taupe: '#afa297' }, fontFamily: { serif: ['Fraunces', 'serif'], sans: ['"Inter Tight"', 'sans-serif'] } } } }
+tailwind.config = {
+  darkMode: ['class', '[data-theme="dark"]'],
+  theme: { extend: { colors: { taupe: '#afa297' }, fontFamily: { serif: ['Fraunces','serif'], sans: ['"Inter Tight"','sans-serif'] } } }
+}
 </script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
 <style>
-:root,[data-theme="light"]{--bg:#f4f2ef;--bg-deep:#fdfcfb;--surface:#fdfcfb;--surface-alt:#ede9e4;--text:#1a1816;--text-sec:#2e2b28;--text-muted:#524d48;--text-faint:#8a857f;--text-dim:#9e9993;--border:#e6e2de;--border-mid:#ddd9d4;--border-strong:#cec9c3;--accent:#afa297;}
-[data-theme="dark"]{--bg:#050505;--bg-deep:#030303;--surface:#0a0a0a;--surface-alt:#0d0d0c;--text:#fff;--text-sec:#e2e2e2;--text-muted:#a3a3a3;--text-faint:#666;--text-dim:#404040;--border:rgba(255,255,255,0.06);--border-mid:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.10);--accent:#afa297;}
+:root,[data-theme="light"]{--bg:#f4f2ef;--bg-deep:#fdfcfb;--surface:#fdfcfb;--surface-alt:#ede9e4;--text:#1a1816;--text-sec:#2e2b28;--text-muted:#524d48;--text-faint:#8a857f;--text-dim:#9e9993;--text-ghost:#c8c3be;--border:#e6e2de;--border-mid:#ddd9d4;--border-strong:#cec9c3;--accent:#afa297;}
+[data-theme="dark"]{--bg:#050505;--bg-deep:#030303;--surface:#0a0a0a;--surface-alt:#0d0d0c;--text:#fff;--text-sec:#e2e2e2;--text-muted:#a3a3a3;--text-faint:#666;--text-dim:#404040;--text-ghost:#2a2a2a;--border:rgba(255,255,255,0.06);--border-mid:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.10);--accent:#afa297;}
 html,body{background:var(--bg);color:var(--text);}
 body{transition:background-color .3s ease,color .3s ease;font-feature-settings:"ss01","ss02";}
 *,*::before,*::after{border-color:var(--border);}
 ::selection{background:rgba(175,162,151,.30);color:var(--text);}
+
+[data-theme="dark"] img.fm-image{filter:contrast(1.05) brightness(0.97);}
+img.fm-image{transition:filter .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubic-bezier(0.16,1,0.3,1);}
+[data-theme="dark"] .group:hover img.fm-image{filter:none;}
+
 .theme-toggle{position:fixed;top:24px;right:24px;z-index:100;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border-mid);color:var(--text);cursor:pointer;backdrop-filter:blur(12px);transition:all .3s cubic-bezier(0.16,1,0.3,1);}
 .theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
 [data-theme="dark"] .show-light{display:none;}[data-theme="light"] .show-dark{display:none;}
+
+.fm-save-card{position:absolute;top:12px;right:12px;z-index:5;width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:rgba(253,252,251,.85);border:1px solid var(--border);color:var(--accent);cursor:pointer;backdrop-filter:blur(8px);transition:all .3s cubic-bezier(0.16,1,0.3,1);}
+[data-theme="dark"] .fm-save-card{background:rgba(10,10,10,.7);border-color:var(--border-mid);}
+.fm-save-card:hover{color:var(--text);border-color:var(--accent);}
+
+@keyframes fm-pulse{0%,100%{r:14;opacity:.35;}50%{r:20;opacity:.1;}}
+.fm-pin-pulse{animation:fm-pulse 2.5s cubic-bezier(0.16,1,0.3,1) infinite;}
+
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+[data-theme="dark"] ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);}
+[data-theme="light"] ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.08);}
 </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden">
@@ -34,6 +63,7 @@ body{transition:background-color .3s ease,color .3s ease;font-feature-settings:"
   <iconify-icon class="show-light" icon="solar:moon-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
 </button>
 
+<!-- Nav -->
 <nav class="fixed top-0 w-full z-50 p-6 lg:p-10 flex justify-between items-center pointer-events-none" style="background:rgba(244,242,239,0.5);backdrop-filter:blur(12px);">
   <div class="pointer-events-auto">
     <button id="menu-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Menu" style="color:var(--text);">
@@ -49,6 +79,7 @@ body{transition:background-color .3s ease,color .3s ease;font-feature-settings:"
   </div>
 </nav>
 
+<!-- Fullscreen menu -->
 <div id="mobile-menu" class="fixed inset-0 z-[60] opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col" style="background:var(--bg-deep);transition-timing-function:cubic-bezier(0.16,1,0.3,1);">
   <div class="p-6 lg:p-10 flex justify-between items-center relative">
     <button id="close-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Sluit menu" style="color:var(--text);">
@@ -70,71 +101,502 @@ body{transition:background-color .3s ease,color .3s ease;font-feature-settings:"
       <a href="atlas.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color:var(--text);"><span class="group-hover:italic transition-all duration-500">Mijn Atlas</span><iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color:var(--accent);"></iconify-icon></a>
     </nav>
   </div>
-  <div class="p-6 lg:p-10 max-w-[1600px] w-full mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-end gap-8">
-    <div class="flex gap-6 sm:gap-8">
-      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color:var(--text-muted);">Instagram</a>
-      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color:var(--text-muted);">Pinterest</a>
-      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color:var(--text-muted);">Contact</a>
-    </div>
-    <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--text-faint);">&copy; 2026 For Members.</div>
+</div>
+
+<!-- Kruimelpad -->
+<div class="pt-28 lg:pt-32">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <nav aria-label="Kruimelpad" class="text-xs font-semibold uppercase tracking-widest" style="color:var(--text-faint);">
+      <span style="color:var(--text);">Mijn Atlas</span>
+    </nav>
   </div>
 </div>
 
-<!-- ───── Hero — Stub-pagina ───── -->
-<header class="min-h-screen flex flex-col p-6 lg:p-10 relative overflow-hidden" style="background:var(--bg);">
-  <div class="flex justify-between items-start text-xs font-semibold uppercase tracking-widest pt-20 lg:pt-24" style="color:var(--text-faint);">
-    <div>Voor leden</div>
-    <div>Volgt in v0.2</div>
-  </div>
-  <div class="flex-1 flex flex-col justify-center max-w-[1600px] mx-auto w-full">
-    <div class="text-xs font-semibold uppercase tracking-widest mb-6" style="color:var(--text-faint);">For Members.</div>
-    <h1 class="font-serif font-medium tracking-tight leading-[0.95]" style="font-size:clamp(3.5rem,11vw,11rem);color:var(--text);">
-      Mijn<br><span class="italic font-normal" style="color:var(--accent);">Atlas</span>.
-    </h1>
-    <p class="mt-12 text-base md:text-lg font-light leading-relaxed max-w-xl" style="color:var(--text-muted);">
-      Hier komt je persoonlijke dashboard: een wereldkaart met je opgeslagen adressen, je lijsten, je notities en je status per plek. De kaart vult zich naarmate je rondkijkt. Volgt in v0.2.
-    </p>
-    <div class="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-widest" style="color:var(--text-faint);">
-      <span>Saved entries op kaart</span>
-      <span aria-hidden="true">&middot;</span>
-      <span>Lijsten</span>
-      <span aria-hidden="true">&middot;</span>
-      <span>Notities</span>
-      <span aria-hidden="true">&middot;</span>
-      <span>Status per plek</span>
+<!-- Header -->
+<section class="mt-8 lg:mt-12 border-b" style="border-color:var(--border);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 pb-12 lg:pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-end">
+      <div class="lg:col-span-7">
+        <div class="text-xs font-semibold uppercase tracking-widest mb-6" style="color:var(--text-faint);">Voor leden</div>
+        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium leading-[1.05]" style="color:var(--text);">
+          Mijn<span class="italic font-normal" style="color:var(--accent);">.</span> Atlas
+        </h1>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9">
+        <div id="atlas-meta" class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold uppercase tracking-widest" style="color:var(--text-faint);">
+          <!-- gevuld via JS -->
+        </div>
+      </div>
     </div>
   </div>
-  <div class="flex justify-between items-end text-xs font-semibold uppercase tracking-widest" style="color:var(--text-faint);">
-    <a href="city.html" class="group inline-flex items-center gap-3 hover:opacity-70 transition-opacity">
-      <iconify-icon icon="solar:arrow-left-linear" stroke-width="1.5" class="group-hover:-translate-x-1 transition-transform" style="font-size:14px"></iconify-icon>
-      <span>Terug naar Lyon</span>
-    </a>
-    <a href="index.html" class="group inline-flex items-center gap-3 hover:opacity-70 transition-opacity">
-      <span>Naar home</span>
-      <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="group-hover:translate-x-1 transition-transform" style="font-size:14px"></iconify-icon>
-    </a>
-  </div>
-</header>
+</section>
 
-<!-- ───── Footer ───── -->
-<footer class="border-t pt-24 pb-12 px-6 lg:px-10" style="border-color:var(--border);background:var(--surface-alt);">
-  <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-    <div class="flex items-center gap-6">
-      <a href="index.html" aria-label="For Members. Home" style="color:var(--text);">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-8" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
-      </a>
-      <div class="font-serif text-xl tracking-tight" style="color:var(--text);">For Members<span class="italic font-normal" style="color:var(--accent);">.</span></div>
+<!-- Empty state -->
+<section id="atlas-empty" class="border-b hidden" style="border-color:var(--border);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-24 lg:py-40">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-end">
+      <div class="lg:col-span-8">
+        <div class="text-xs font-semibold uppercase tracking-widest mb-4" style="color:var(--text-faint);">Lege staat</div>
+        <h2 class="font-serif text-4xl md:text-6xl tracking-tight font-medium leading-[1.05]" style="color:var(--text);">
+          Je atlas<br><span class="italic font-normal" style="color:var(--accent);">wacht</span>.
+        </h2>
+        <p class="mt-8 text-base md:text-lg font-light leading-relaxed max-w-2xl" style="color:var(--text-muted);">
+          Het bookmark-icoon op elke kaart laat zich aanraken. Begin met een hotel, een tafel, of een museum dat ergens hoort. Pas dan begint dit op iets te lijken — een wereldkaart die zich vult naarmate je rondkijkt.
+        </p>
+      </div>
+      <div class="lg:col-span-3 lg:col-start-10">
+        <a href="country.html" class="group inline-flex items-center justify-between w-full transition-all" style="background:var(--text);color:var(--bg);padding:14px 20px;">
+          <span class="font-serif text-base md:text-lg tracking-tight">Begin in Frankrijk</span>
+          <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" style="font-size:18px"></iconify-icon>
+        </a>
+      </div>
     </div>
-    <p class="text-xs font-light" style="color:var(--text-faint);">&copy; 2026 For Members. Gecureerd door Peter &amp; Birgit.</p>
+  </div>
+</section>
+
+<!-- Atlas content (visible if saved.length > 0) -->
+<div id="atlas-content" class="hidden">
+
+  <!-- Kaart -->
+  <section class="border-b" style="border-color:var(--border);">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end mb-8 lg:mb-12">
+        <div class="lg:col-span-5">
+          <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:var(--text-faint);">Wereldkaart</div>
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color:var(--text);">Waar je bent geweest<span class="italic font-normal" style="color:var(--accent);">.</span></h2>
+        </div>
+        <div class="lg:col-span-5 lg:col-start-8">
+          <p class="text-sm md:text-base font-light leading-relaxed" style="color:var(--text-muted);">
+            Voor v0.1 alleen Frankrijk &mdash; meer landen volgen. De pulse-pin is wat je het laatst hebt bewaard.
+          </p>
+        </div>
+      </div>
+      <div class="relative w-full overflow-hidden" style="background:var(--surface-alt);border:1px solid var(--border);">
+        <svg viewBox="0 0 800 600" class="w-full h-auto block" preserveAspectRatio="xMidYMid meet">
+          <!-- Frankrijk-omtrek vereenvoudigd -->
+          <path d="M 400,10 L 470,5 L 540,40 L 660,90 L 720,150 L 750,250 L 740,340 L 720,420 L 670,490 L 580,520 L 480,530 L 380,535 L 290,520 L 200,510 L 100,470 L 50,400 L 30,300 L 20,200 L 60,130 L 150,80 L 220,60 L 290,30 Z" fill="var(--bg)" stroke="var(--border-strong)" stroke-width="1.2" opacity="0.85"/>
+          <!-- Corsica -->
+          <path d="M 720,540 L 745,545 L 755,575 L 730,585 L 715,565 Z" fill="var(--bg)" stroke="var(--border-strong)" stroke-width="1" opacity="0.7"/>
+          <!-- City labels (subtiel) -->
+          <g font-family="Inter Tight, sans-serif" font-size="10" font-weight="600" fill="var(--text-faint)" letter-spacing="1.5" style="text-transform:uppercase;">
+            <text x="430" y="135" opacity="0.6">Parijs</text>
+            <text x="585" y="320" opacity="0.6">Lyon</text>
+            <text x="660" y="445" opacity="0.6">Nice</text>
+            <text x="580" y="475" opacity="0.6">Marseille</text>
+          </g>
+          <!-- Pins worden via JS toegevoegd -->
+          <g id="atlas-pins"></g>
+        </svg>
+        <!-- Preview-paneel voor active pin -->
+        <div id="atlas-pin-preview" class="absolute left-4 bottom-4 md:left-6 md:bottom-6 max-w-xs p-4 pointer-events-auto hidden" style="background:var(--surface);border:1px solid var(--border-mid);">
+          <!-- gevuld via JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bewaard -->
+  <section class="border-b" style="border-color:var(--border);background:var(--surface);">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 lg:mb-14 gap-6">
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:var(--text-faint);">Bewaard</div>
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color:var(--text);">Al je adressen<span class="italic font-normal" style="color:var(--accent);">.</span></h2>
+        </div>
+        <p class="text-xs font-light max-w-sm" style="color:var(--text-faint);">
+          Klik op het bookmark om een adres uit je atlas te halen.
+        </p>
+      </div>
+      <div id="atlas-bewaard" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-10">
+        <!-- gevuld via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Status — Wishlist / Visited / Favorite -->
+  <section id="atlas-status-wishlist" class="border-b hidden" style="border-color:var(--border);">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end mb-10 lg:mb-12">
+        <div class="lg:col-span-5">
+          <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:var(--text-faint);">Status</div>
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color:var(--text);">
+            <iconify-icon icon="solar:moon-stars-linear" stroke-width="1.5" class="align-middle mr-2" style="font-size:32px;color:var(--accent);"></iconify-icon>
+            <span>Wishlist</span><span class="italic font-normal" style="color:var(--accent);">.</span>
+          </h2>
+        </div>
+      </div>
+      <div id="atlas-wishlist-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-10"></div>
+    </div>
+  </section>
+
+  <section id="atlas-status-visited" class="border-b hidden" style="border-color:var(--border);background:var(--surface);">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end mb-10 lg:mb-12">
+        <div class="lg:col-span-5">
+          <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:var(--text-faint);">Status</div>
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color:var(--text);">
+            <iconify-icon icon="solar:check-circle-linear" stroke-width="1.5" class="align-middle mr-2" style="font-size:32px;color:var(--accent);"></iconify-icon>
+            <span>Visited</span><span class="italic font-normal" style="color:var(--accent);">.</span>
+          </h2>
+        </div>
+      </div>
+      <div id="atlas-visited-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-10"></div>
+    </div>
+  </section>
+
+  <section id="atlas-status-favorite" class="border-b hidden" style="border-color:var(--border);">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end mb-10 lg:mb-12">
+        <div class="lg:col-span-5">
+          <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:var(--text-faint);">Status</div>
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color:var(--text);">
+            <iconify-icon icon="solar:heart-linear" stroke-width="1.5" class="align-middle mr-2" style="font-size:32px;color:var(--accent);"></iconify-icon>
+            <span>Favorite</span><span class="italic font-normal" style="color:var(--accent);">.</span>
+          </h2>
+        </div>
+      </div>
+      <div id="atlas-favorite-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-10"></div>
+    </div>
+  </section>
+
+  <!-- Notities -->
+  <section id="atlas-notes-section" class="border-b hidden" style="border-color:var(--border);background:var(--surface-alt);">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end mb-10 lg:mb-14">
+        <div class="lg:col-span-5">
+          <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:var(--text-faint);">Notities</div>
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color:var(--text);">Wat je je<br><span class="italic font-normal" style="color:var(--accent);">wilde herinneren</span>.</h2>
+        </div>
+      </div>
+      <div id="atlas-notes" class="max-w-3xl"></div>
+    </div>
+  </section>
+
+  <!-- Lists-stub -->
+  <section class="border-b" style="border-color:var(--border);">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end">
+        <div class="lg:col-span-5">
+          <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color:var(--text-faint);">Lijsten</div>
+          <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium leading-[1.1]" style="color:var(--text);">Voor later<span class="italic font-normal" style="color:var(--accent);">.</span></h2>
+        </div>
+        <div class="lg:col-span-6 lg:col-start-7">
+          <p class="text-sm md:text-base font-light leading-relaxed mb-6" style="color:var(--text-muted);">
+            "Bruiloft Toscane", "Bucket Japan", "Birgit's Tokyo edit" &mdash; named lijsten die je samenstelt en optioneel deelt. Voor nu zijn je status-pills en notities al persistent &mdash; lijsten volgen in v1.5.
+          </p>
+          <button class="w-full inline-flex items-center justify-between p-4 text-sm font-medium transition-all cursor-not-allowed opacity-60" style="border:1px dashed var(--border-strong);color:var(--text-muted);" disabled>
+            <span class="inline-flex items-center gap-3">
+              <iconify-icon icon="solar:add-circle-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+              <span>Nieuwe lijst aanmaken</span>
+            </span>
+            <span class="text-[10px] uppercase tracking-widest" style="color:var(--text-faint);">v1.5</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer class="border-t pt-24 pb-12 px-6 lg:px-10" style="border-color:var(--border);background:var(--surface-alt);">
+  <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-8 mb-24">
+    <div class="md:col-span-5 flex flex-col items-start gap-8">
+      <a href="index.html" aria-label="For Members. Home" style="color:var(--text);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-10" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+      </a>
+      <div class="font-serif text-3xl tracking-tight font-medium" style="color:var(--text);">For Members<span class="italic font-normal" style="color:var(--accent);">.</span></div>
+      <p class="text-sm font-light leading-relaxed max-w-sm" style="color:var(--text-muted);">Een doorlopende verzameling van uitmuntendheid in design, gastvrijheid en esthetiek. Gecureerd door Peter &amp; Birgit.</p>
+    </div>
+    <div class="md:col-span-2 flex flex-col gap-4">
+      <div class="text-xs font-semibold uppercase tracking-widest mb-2" style="color:var(--text);">Index</div>
+      <a href="sanctuary.html" class="text-sm" style="color:var(--text-muted);">Sanctuary</a>
+      <a href="coming-soon.html" class="text-sm" style="color:var(--text-muted);">Table</a>
+      <a href="shop.html" class="text-sm" style="color:var(--text-muted);">Shop</a>
+      <a href="coming-soon.html" class="text-sm" style="color:var(--text-muted);">Culture</a>
+      <a href="route.html" class="text-sm" style="color:var(--text-muted);">Routes</a>
+    </div>
+    <div class="md:col-span-5 flex flex-col gap-4">
+      <div class="text-xs font-semibold uppercase tracking-widest mb-2" style="color:var(--text);">Private Newsletter</div>
+      <p class="text-sm font-light max-w-md" style="color:var(--text-muted);">Stille toevoegingen aan de collectie, eens per maand in je inbox. Geen spam, alleen wat het waard is.</p>
+      <div class="relative w-full max-w-md mt-2">
+        <input type="email" placeholder="jouw@adres.com" class="w-full bg-transparent py-3 pr-10 text-sm focus:outline-none" style="border-bottom:1px solid var(--border-strong);color:var(--text);">
+        <button class="absolute right-0 top-1/2 -translate-y-1/2" style="color:var(--text-faint);" aria-label="Inschrijven">
+          <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-xl"></iconify-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center pt-8 text-xs font-light" style="border-top:1px solid var(--border);color:var(--text-faint);">
+    <p>&copy; 2026 For Members. Gecureerd door Peter &amp; Birgit.</p>
+    <div class="flex gap-6 mt-4 md:mt-0">
+      <a href="#" class="transition-colors hover:opacity-70">Instagram</a>
+      <a href="#" class="transition-colors hover:opacity-70">Pinterest</a>
+      <a href="#" class="transition-colors hover:opacity-70">Contact</a>
+    </div>
   </div>
 </footer>
 
 <script>
+// Menu open/close
 (function(){
-  var btn=document.getElementById('menu-btn');var close=document.getElementById('close-btn');var menu=document.getElementById('mobile-menu');
+  var btn=document.getElementById('menu-btn'),close=document.getElementById('close-btn'),menu=document.getElementById('mobile-menu');
   if(btn&&menu)btn.addEventListener('click',function(){menu.classList.remove('opacity-0','pointer-events-none');});
   if(close&&menu)close.addEventListener('click',function(){menu.classList.add('opacity-0','pointer-events-none');});
 })();
+
+// ────────── ENTRIES registry (hardcoded — alle 40 slugs uit city/entry/country) ──────────
+var ENTRIES = {
+  // Lyon — Sanctuary
+  'lyon-cour-des-loges':       { name:'Cour des Loges',         cat:'Sanctuary', city:'Lyon', country:'Frankrijk', district:"Vieux Lyon · 5e", lat:45.762, lng:4.829, image:'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-villa-florentine':     { name:'Villa Florentine',       cat:'Sanctuary', city:'Lyon', country:'Frankrijk', district:'Fourvière · 5e',   lat:45.762, lng:4.821, image:'https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-hotel-des-artistes':   { name:'Hôtel des Artistes',     cat:'Sanctuary', city:'Lyon', country:'Frankrijk', district:'Bellecour · 2e',   lat:45.758, lng:4.832, image:'https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-mihotel':              { name:'MiHotel Mercière',       cat:'Sanctuary', city:'Lyon', country:'Frankrijk', district:"Presqu'île · 2e",  lat:45.764, lng:4.836, image:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-mama-shelter':         { name:'Mama Shelter',           cat:'Sanctuary', city:'Lyon', country:'Frankrijk', district:'La Guillotière · 7e', lat:45.752, lng:4.846, image:'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-le-royal':             { name:'Hôtel Le Royal',         cat:'Sanctuary', city:'Lyon', country:'Frankrijk', district:'Bellecour · 2e',   lat:45.757, lng:4.832, image:'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  // Lyon — Table
+  'lyon-mere-brazier':         { name:'La Mère Brazier',        cat:'Table',     city:'Lyon', country:'Frankrijk', district:'1e',               lat:45.770, lng:4.833, image:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-neuvieme-art':         { name:'Le Neuvième Art',        cat:'Table',     city:'Lyon', country:'Frankrijk', district:'Brotteaux · 6e',   lat:45.770, lng:4.853, image:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-daniel-et-denise':     { name:'Daniel et Denise',       cat:'Table',     city:'Lyon', country:'Frankrijk', district:'Vieux Lyon',       lat:45.762, lng:4.828, image:'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-tetedoie':             { name:'Têtedoie',               cat:'Table',     city:'Lyon', country:'Frankrijk', district:'Fourvière · 5e',   lat:45.762, lng:4.822, image:'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-apothicaires':         { name:'Les Apothicaires',       cat:'Table',     city:'Lyon', country:'Frankrijk', district:'Brotteaux · 6e',   lat:45.771, lng:4.852, image:'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-prairial':             { name:'Prairial',               cat:'Table',     city:'Lyon', country:'Frankrijk', district:"Presqu'île · 2e",  lat:45.760, lng:4.833, image:'https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  // Lyon — Shop
+  'lyon-bernachon':            { name:'Bernachon',              cat:'Shop',      city:'Lyon', country:'Frankrijk', district:'6e',               lat:45.770, lng:4.851, image:'https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-pignol':               { name:'Pignol',                 cat:'Shop',      city:'Lyon', country:'Frankrijk', district:'2e',               lat:45.763, lng:4.832, image:'https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-antic-wine':           { name:'Antic Wine',             cat:'Shop',      city:'Lyon', country:'Frankrijk', district:'Vieux Lyon',       lat:45.762, lng:4.828, image:'https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-seve':                 { name:'Sève',                   cat:'Shop',      city:'Lyon', country:'Frankrijk', district:'2e',               lat:45.760, lng:4.832, image:'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-atelier-halles':       { name:"L'Atelier des Halles",   cat:'Shop',      city:'Lyon', country:'Frankrijk', district:'1e',               lat:45.770, lng:4.834, image:'https://images.unsplash.com/photo-1532634922-8fe0b757fb13?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-pralus':               { name:'Maison Pralus',          cat:'Shop',      city:'Lyon', country:'Frankrijk', district:'2e',               lat:45.763, lng:4.834, image:'https://images.unsplash.com/photo-1567016526105-22da7c13161a?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  // Lyon — Culture
+  'lyon-confluences':          { name:'Musée des Confluences',  cat:'Culture',   city:'Lyon', country:'Frankrijk', district:'Confluence',       lat:45.733, lng:4.818, image:'https://images.unsplash.com/photo-1554907984-15263bfd63bd?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-beaux-arts':           { name:'Musée des Beaux-Arts',   cat:'Culture',   city:'Lyon', country:'Frankrijk', district:'Terreaux · 1e',    lat:45.767, lng:4.833, image:'https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-institut-lumiere':     { name:'Institut Lumière',       cat:'Culture',   city:'Lyon', country:'Frankrijk', district:'Monplaisir · 8e',  lat:45.745, lng:4.866, image:'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-tissus':               { name:'Musée des Tissus',       cat:'Culture',   city:'Lyon', country:'Frankrijk', district:'2e',               lat:45.755, lng:4.830, image:'https://images.unsplash.com/photo-1545569310-c0376b25aaf3?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-celestins':            { name:'Théâtre des Célestins',  cat:'Culture',   city:'Lyon', country:'Frankrijk', district:'2e',               lat:45.763, lng:4.832, image:'https://images.unsplash.com/photo-1547621869-3eb9404f9c79?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'lyon-bullukian':            { name:'Fondation Bullukian',    cat:'Culture',   city:'Lyon', country:'Frankrijk', district:'Bellecour',        lat:45.757, lng:4.832, image:'https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+
+  // France losse — Sanctuary
+  'fr-particulier-montmartre': { name:'Hôtel Particulier',      cat:'Sanctuary', city:'Parijs',          country:'Frankrijk', district:'Montmartre',  lat:48.886, lng:2.342, image:'https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-la-reserve-paris':       { name:'La Réserve Paris',       cat:'Sanctuary', city:'Parijs',          country:'Frankrijk', district:'8e',          lat:48.872, lng:2.297, image:'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-maison-saint-jean':      { name:'Maison Saint Jean',      cat:'Sanctuary', city:'Saint-Tropez',    country:'Frankrijk', district:'',            lat:43.272, lng:6.640, image:'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-coquillade-provence':    { name:'Coquillade Provence',    cat:'Sanctuary', city:'Gargas',          country:'Frankrijk', district:'Luberon',     lat:43.928, lng:5.298, image:'https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  // France losse — Table
+  'fr-le-clarence':            { name:'Le Clarence',            cat:'Table',     city:'Parijs',          country:'Frankrijk', district:'8e',          lat:48.870, lng:2.305, image:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-mirazur':                { name:'Mirazur',                cat:'Table',     city:'Menton',          country:'Frankrijk', district:'',            lat:43.776, lng:7.529, image:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-bras':                   { name:'Bras',                   cat:'Table',     city:'Laguiole',        country:'Frankrijk', district:'Aubrac',      lat:44.681, lng:2.846, image:'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-larpege':                { name:"L'Arpège",               cat:'Table',     city:'Parijs',          country:'Frankrijk', district:'7e',          lat:48.857, lng:2.314, image:'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  // France losse — Shop
+  'fr-pierre-herme':           { name:'Pierre Hermé',           cat:'Shop',      city:'Parijs',          country:'Frankrijk', district:'6e',          lat:48.851, lng:2.332, image:'https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-astier-villatte':        { name:'Astier de Villatte',     cat:'Shop',      city:'Parijs',          country:'Frankrijk', district:'1e',          lat:48.866, lng:2.343, image:'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-merci':                  { name:'Merci',                  cat:'Shop',      city:'Parijs',          country:'Frankrijk', district:'3e',          lat:48.860, lng:2.367, image:'https://images.unsplash.com/photo-1532634922-8fe0b757fb13?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-maison-plisson':         { name:'Maison Plisson',         cat:'Shop',      city:'Parijs',          country:'Frankrijk', district:'3e',          lat:48.860, lng:2.368, image:'https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  // France losse — Culture
+  'fr-fondation-maeght':       { name:'Fondation Maeght',       cat:'Culture',   city:'Saint-Paul-de-Vence', country:'Frankrijk', district:'',        lat:43.696, lng:7.118, image:'https://images.unsplash.com/photo-1554907984-15263bfd63bd?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-musee-picasso':          { name:'Musée Picasso',          cat:'Culture',   city:'Antibes',         country:'Frankrijk', district:'',            lat:43.582, lng:7.130, image:'https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-atelier-lumieres':       { name:'Atelier des Lumières',   cat:'Culture',   city:'Parijs',          country:'Frankrijk', district:'11e',         lat:48.866, lng:2.380, image:'https://images.unsplash.com/photo-1545569310-c0376b25aaf3?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+  'fr-bibliotheque-mazarine':  { name:'Bibliothèque Mazarine',  cat:'Culture',   city:'Parijs',          country:'Frankrijk', district:'6e',          lat:48.857, lng:2.336, image:'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&q=80&w=600', href:'entry.html' },
+};
+
+// ────────── localStorage helpers ──────────
+function getSaved(){ try { return JSON.parse(localStorage.getItem('fm-saved-entries')) || []; } catch(e){ return []; } }
+function setSaved(arr){ try { localStorage.setItem('fm-saved-entries', JSON.stringify(arr)); } catch(e){} }
+function getStatus(slug){ try { return JSON.parse(localStorage.getItem('fm-status-' + slug)) || {}; } catch(e){ return {}; } }
+function getNote(slug){ return localStorage.getItem('fm-note-' + slug) || ''; }
+
+// ────────── lat/lng → SVG x/y (Frankrijk-bounding box) ──────────
+// lat range 41 (Corsica) – 51 (Calais) → y 0–600
+// lng range -5 (Brest) – 9 (Strasbourg) → x 0–800
+function projectToSVG(lat, lng){
+  var x = (lng + 5) * (800/14);
+  var y = (51 - lat) * 60;
+  return { x: Math.max(0, Math.min(800, x)), y: Math.max(0, Math.min(600, y)) };
+}
+
+// ────────── render helpers ──────────
+function statusBadges(slug){
+  var s = getStatus(slug);
+  var icons = [];
+  if (s.wishlist) icons.push('<iconify-icon icon="solar:moon-stars-linear" stroke-width="1.5" style="font-size:12px;color:var(--accent);" title="Wishlist"></iconify-icon>');
+  if (s.visited)  icons.push('<iconify-icon icon="solar:check-circle-linear" stroke-width="1.5" style="font-size:12px;color:var(--accent);" title="Visited"></iconify-icon>');
+  if (s.favorite) icons.push('<iconify-icon icon="solar:heart-linear" stroke-width="1.5" style="font-size:12px;color:var(--accent);" title="Favorite"></iconify-icon>');
+  if (icons.length === 0) return '';
+  return '<div class="flex items-center gap-2 mt-1">' + icons.join('') + '</div>';
+}
+
+function cardHTML(slug){
+  var e = ENTRIES[slug];
+  if (!e) return '';
+  return ''
+    + '<div class="group flex flex-col gap-3 md:gap-5 relative">'
+    +   '<a href="' + e.href + '" class="block">'
+    +     '<div class="relative w-full aspect-square overflow-hidden" style="background:var(--surface-alt);">'
+    +       '<img src="' + e.image + '" alt="' + e.name + '" class="fm-image object-cover w-full h-full group-hover:scale-105">'
+    +     '</div>'
+    +   '</a>'
+    +   '<button class="fm-save-card" data-unsave="' + slug + '" aria-label="Verwijder uit atlas" title="Verwijder uit atlas">'
+    +     '<iconify-icon icon="solar:bookmark-bold" style="font-size:18px"></iconify-icon>'
+    +   '</button>'
+    +   '<div class="flex flex-col gap-1">'
+    +     '<div class="text-[10px] font-semibold uppercase tracking-widest" style="color:var(--accent);">' + e.cat + '</div>'
+    +     '<a href="' + e.href + '"><h3 class="font-serif text-base md:text-xl tracking-tight font-medium" style="color:var(--text);">' + e.name + '</h3></a>'
+    +     '<span class="text-[10px] md:text-xs font-semibold uppercase tracking-widest truncate" style="color:var(--text-faint);">' + e.city + (e.district ? ' · ' + e.district : '') + '</span>'
+    +     statusBadges(slug)
+    +   '</div>'
+    + '</div>';
+}
+
+function renderMap(slugs){
+  var pinsEl = document.getElementById('atlas-pins');
+  if (!pinsEl) return;
+  pinsEl.innerHTML = '';
+  // De laatst-toegevoegde slug krijgt de pulse-pin
+  var lastSlug = slugs[slugs.length - 1];
+  slugs.forEach(function(slug, idx){
+    var e = ENTRIES[slug];
+    if (!e) return;
+    var p = projectToSVG(e.lat, e.lng);
+    var isLast = (slug === lastSlug);
+    var radius = isLast ? 9 : 5;
+    var group = '<g data-pin-slug="' + slug + '" style="cursor:pointer;" class="atlas-pin">';
+    if (isLast) {
+      group += '<circle cx="' + p.x + '" cy="' + p.y + '" r="14" fill="var(--accent)" opacity="0.18" class="fm-pin-pulse"></circle>';
+    }
+    group += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + radius + '" fill="var(--accent)"></circle>';
+    if (isLast) group += '<circle cx="' + p.x + '" cy="' + p.y + '" r="2.5" fill="var(--bg)"></circle>';
+    group += '</g>';
+    pinsEl.insertAdjacentHTML('beforeend', group);
+  });
+  // Click-handler op pins → preview-paneel
+  pinsEl.querySelectorAll('.atlas-pin').forEach(function(g){
+    g.addEventListener('click', function(){
+      var slug = g.dataset.pinSlug;
+      var e = ENTRIES[slug];
+      if (!e) return;
+      var preview = document.getElementById('atlas-pin-preview');
+      preview.innerHTML = ''
+        + '<div class="text-[10px] font-semibold uppercase tracking-widest mb-1" style="color:var(--accent);">' + e.cat + '</div>'
+        + '<div class="font-serif text-xl tracking-tight font-medium mb-2" style="color:var(--text);">' + e.name + '</div>'
+        + '<div class="text-xs font-light mb-3" style="color:var(--text-muted);">' + e.city + (e.district ? ' · ' + e.district : '') + '</div>'
+        + '<a href="' + e.href + '" class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest" style="color:var(--text-muted);">'
+        +   '<span>Bekijk adres</span>'
+        +   '<iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-sm"></iconify-icon>'
+        + '</a>';
+      preview.classList.remove('hidden');
+    });
+  });
+  // Default: laat de laatst-toegevoegde zien als preview
+  if (lastSlug){
+    var lastG = pinsEl.querySelector('[data-pin-slug="' + lastSlug + '"]');
+    if (lastG) lastG.dispatchEvent(new Event('click'));
+  }
+}
+
+function renderGrid(targetId, slugs){
+  var el = document.getElementById(targetId);
+  if (!el) return;
+  el.innerHTML = slugs.map(cardHTML).join('');
+}
+
+function renderStatusSection(sectionId, gridId, statusKey, slugs){
+  var matches = slugs.filter(function(slug){ return getStatus(slug)[statusKey] === true; });
+  var sectionEl = document.getElementById(sectionId);
+  if (matches.length === 0){
+    sectionEl.classList.add('hidden');
+    return 0;
+  }
+  sectionEl.classList.remove('hidden');
+  renderGrid(gridId, matches);
+  return matches.length;
+}
+
+function renderNotes(slugs){
+  var notes = slugs
+    .map(function(slug){ return { slug: slug, note: getNote(slug) }; })
+    .filter(function(item){ return item.note && item.note.trim().length > 0; });
+  var section = document.getElementById('atlas-notes-section');
+  var container = document.getElementById('atlas-notes');
+  if (notes.length === 0){
+    section.classList.add('hidden');
+    return 0;
+  }
+  section.classList.remove('hidden');
+  container.innerHTML = notes.map(function(item){
+    var e = ENTRIES[item.slug]; if (!e) return '';
+    var preview = item.note.length > 220 ? item.note.slice(0, 217) + '…' : item.note;
+    return ''
+      + '<article class="py-8 first:pt-0" style="border-top:1px solid var(--border-mid);">'
+      +   '<div class="text-[10px] font-semibold uppercase tracking-widest mb-2" style="color:var(--accent);">' + e.cat + ' · ' + e.city + '</div>'
+      +   '<h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium mb-3" style="color:var(--text);">' + e.name + '</h3>'
+      +   '<p class="text-sm md:text-base font-light leading-relaxed mb-4 italic" style="color:var(--text-muted);">"' + preview + '"</p>'
+      +   '<a href="' + e.href + '" class="group inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-widest" style="color:var(--text-faint);">'
+      +     '<span>Bekijk &amp; bewerk</span>'
+      +     '<iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="group-hover:translate-x-1 transition-transform" style="font-size:14px"></iconify-icon>'
+      +   '</a>'
+      + '</article>';
+  }).join('');
+  // Border-top op eerste alleen verwijderen — done met first:pt-0 alleen; voor border doe ik via inline style of first-child
+  var firstArticle = container.querySelector('article');
+  if (firstArticle) firstArticle.style.borderTop = '0';
+  return notes.length;
+}
+
+function updateMeta(savedCount, wishlistCount, visitedCount, favoriteCount, notesCount){
+  var meta = document.getElementById('atlas-meta');
+  var parts = [];
+  if (savedCount > 0)    parts.push('<span>' + savedCount + ' bewaard</span>');
+  if (wishlistCount > 0) parts.push('<span aria-hidden="true">·</span><span>' + wishlistCount + ' wishlist</span>');
+  if (visitedCount > 0)  parts.push('<span aria-hidden="true">·</span><span>' + visitedCount + ' visited</span>');
+  if (favoriteCount > 0) parts.push('<span aria-hidden="true">·</span><span>' + favoriteCount + ' favorite</span>');
+  if (notesCount > 0)    parts.push('<span aria-hidden="true">·</span><span>' + notesCount + ' notitie' + (notesCount === 1 ? '' : 's') + '</span>');
+  meta.innerHTML = parts.length > 0 ? parts.join(' ') : '<span>Nog leeg</span>';
+}
+
+function render(){
+  var raw = getSaved();
+  // Filter onbekende slugs uit
+  var saved = raw.filter(function(s){ return ENTRIES[s]; });
+  // Sync: als raw onbekende slugs bevatte, sla schone array terug op
+  if (saved.length !== raw.length) setSaved(saved);
+
+  var emptyEl   = document.getElementById('atlas-empty');
+  var contentEl = document.getElementById('atlas-content');
+
+  if (saved.length === 0){
+    emptyEl.classList.remove('hidden');
+    contentEl.classList.add('hidden');
+    updateMeta(0, 0, 0, 0, 0);
+    return;
+  }
+  emptyEl.classList.add('hidden');
+  contentEl.classList.remove('hidden');
+
+  // Kaart
+  renderMap(saved);
+  // Bewaard-grid
+  renderGrid('atlas-bewaard', saved);
+  // Status-secties
+  var wCount = renderStatusSection('atlas-status-wishlist', 'atlas-wishlist-grid', 'wishlist', saved);
+  var vCount = renderStatusSection('atlas-status-visited',  'atlas-visited-grid',  'visited',  saved);
+  var fCount = renderStatusSection('atlas-status-favorite', 'atlas-favorite-grid', 'favorite', saved);
+  // Notities
+  var nCount = renderNotes(saved);
+  // Header meta
+  updateMeta(saved.length, wCount, vCount, fCount, nCount);
+}
+
+// Unsave handler
+document.addEventListener('click', function(e){
+  var btn = e.target.closest && e.target.closest('[data-unsave]');
+  if (!btn) return;
+  e.preventDefault(); e.stopPropagation();
+  var slug = btn.dataset.unsave;
+  var arr = getSaved().filter(function(s){ return s !== slug; });
+  setSaved(arr);
+  render();
+});
+
+render();
 </script>
 
 </body>
