@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<!-- v0.1 — 13 mei 2026 — eerste klikbare Entry-detail: Cour des Loges. Kruimelpad 4 niveaus · hero gallery 8+4 · titel+meta met save · editorial intro · specs-tabel · SVG-kaart-mock Vieux Lyon · pairing 3 categories · member-paneel (status pills + notitie + lists-stub) · in de buurt · brug terug · footer -->
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cour des Loges, Lyon | For Members.</title>
+<meta name="robots" content="noindex, nofollow">
+
+<script>
+(function(){
+  var t = localStorage.getItem('fm-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: ['class', '[data-theme="dark"]'],
+  theme: {
+    extend: {
+      colors: {
+        'pb-bg': 'var(--bg)',
+        'pb-deep': 'var(--bg-deep)',
+        'pb-surface': 'var(--surface)',
+        'pb-alt': 'var(--surface-alt)',
+        'pb-text': 'var(--text)',
+        'pb-sec': 'var(--text-sec)',
+        'pb-muted': 'var(--text-muted)',
+        'pb-faint': 'var(--text-faint)',
+        'pb-dim': 'var(--text-dim)',
+        'pb-ghost': 'var(--text-ghost)',
+        'pb-border': 'var(--border)',
+        'pb-border-mid': 'var(--border-mid)',
+        'pb-border-strong': 'var(--border-strong)',
+        taupe: '#afa297',
+      },
+      fontFamily: {
+        serif: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
+        sans: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<style>
+/* Theme tokens — identiek aan HUISSTIJL.html / city.html */
+:root,
+[data-theme="light"] {
+  --bg: #f4f2ef; --bg-deep: #fdfcfb; --surface: #fdfcfb; --surface-alt: #ede9e4;
+  --text: #1a1816; --text-sec: #2e2b28; --text-muted: #524d48; --text-faint: #8a857f;
+  --text-dim: #9e9993; --text-ghost: #c8c3be;
+  --border: #e6e2de; --border-mid: #ddd9d4; --border-strong: #cec9c3;
+  --accent: #afa297;
+}
+[data-theme="dark"] {
+  --bg: #050505; --bg-deep: #030303; --surface: #0a0a0a; --surface-alt: #0d0d0c;
+  --text: #ffffff; --text-sec: #e2e2e2; --text-muted: #a3a3a3; --text-faint: #666666;
+  --text-dim: #404040; --text-ghost: #2a2a2a;
+  --border: rgba(255,255,255,0.06); --border-mid: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.10);
+  --accent: #afa297;
+}
+html, body { background: var(--bg); color: var(--text); }
+body { transition: background-color 0.3s ease, color 0.3s ease; font-feature-settings: "ss01","ss02"; }
+*, *::before, *::after { border-color: var(--border); }
+::selection { background: rgba(175,162,151,0.30); color: var(--text); }
+
+[data-theme="dark"] img.fm-image { filter: contrast(1.05) brightness(0.97); }
+img.fm-image { transition: filter 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+[data-theme="dark"] .group:hover img.fm-image { filter: none; }
+
+.theme-toggle {
+  position: fixed; top: 24px; right: 24px; z-index: 100;
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  background: var(--surface); border: 1px solid var(--border-mid); color: var(--text);
+  cursor: pointer; backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+[data-theme="dark"] .show-light { display: none; }
+[data-theme="light"] .show-dark { display: none; }
+
+/* Save button — over de card image (zoals city.html) */
+.fm-save-card {
+  position: absolute; top: 12px; right: 12px; z-index: 5;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  background: rgba(253,252,251,0.85); border: 1px solid var(--border); color: var(--text);
+  cursor: pointer; backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="dark"] .fm-save-card { background: rgba(10,10,10,0.7); border-color: var(--border-mid); }
+.fm-save-card:hover { color: var(--accent); border-color: var(--accent); }
+.fm-save-card[data-state="saved"] { color: var(--accent); border-color: var(--accent); }
+.fm-save-card[data-state="saved"] .fm-save-unsaved { display: none; }
+.fm-save-card:not([data-state="saved"]) .fm-save-saved { display: none; }
+
+/* Big save (op detail-pagina, naast titel) */
+.fm-save-big {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 14px 20px;
+  background: transparent; border: 1px solid var(--border-strong); color: var(--text);
+  cursor: pointer; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fm-save-big:hover { border-color: var(--accent); color: var(--accent); }
+.fm-save-big[data-state="saved"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.fm-save-big[data-state="saved"] .fm-save-unsaved { display: none; }
+.fm-save-big:not([data-state="saved"]) .fm-save-saved { display: none; }
+
+/* Status pills */
+.fm-status {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  background: transparent; border: 1px solid var(--border-mid); color: var(--text-muted);
+  cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fm-status:hover { border-color: var(--accent); color: var(--text); }
+.fm-status[data-state="active"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+/* Map pin pulse */
+@keyframes fm-pulse {
+  0%, 100% { r: 12; opacity: 0.35; }
+  50% { r: 18; opacity: 0.1; }
+}
+.fm-pin-pulse { animation: fm-pulse 2.5s cubic-bezier(0.16,1,0.3,1) infinite; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.15); }
+</style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+<!-- ───── Theme toggle ───── -->
+<button class="theme-toggle" onclick="
+  var c = document.documentElement.getAttribute('data-theme');
+  var n = c === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', n);
+  localStorage.setItem('fm-theme', n);
+" aria-label="Wissel thema">
+  <iconify-icon class="show-dark" icon="solar:sun-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+  <iconify-icon class="show-light" icon="solar:moon-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+</button>
+
+<!-- ───── Navigatie (fixed, blur) ───── -->
+<nav class="fixed top-0 w-full z-50 p-6 lg:p-10 flex justify-between items-center pointer-events-none" style="background: rgba(244,242,239,0.5); backdrop-filter: blur(12px);">
+  <div class="pointer-events-auto">
+    <button id="menu-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Menu" style="color: var(--text);">
+      <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5" style="font-size:28px"></iconify-icon>
+    </button>
+  </div>
+  <a href="index.html" class="absolute left-1/2 -translate-x-1/2 pointer-events-auto" aria-label="For Members. Home" style="color: var(--text);">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-7 lg:h-8" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+  </a>
+  <div class="flex gap-8 items-center pointer-events-auto" style="color: var(--text);">
+    <a href="ontdek.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity hidden md:block">Ontdek</a>
+    <a href="atlas.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity">Mijn Atlas</a>
+  </div>
+</nav>
+
+<!-- ───── Fullscreen menu-overlay ───── -->
+<div id="mobile-menu" class="fixed inset-0 z-[60] opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col" style="background: var(--bg-deep); transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);">
+  <div class="p-6 lg:p-10 flex justify-between items-center relative">
+    <button id="close-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Sluit menu" style="color: var(--text);">
+      <iconify-icon icon="solar:close-linear" stroke-width="1.5" style="font-size:28px"></iconify-icon>
+    </button>
+    <a href="index.html" class="absolute left-1/2 -translate-x-1/2" style="color: var(--text);">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-7 lg:h-8" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+    </a>
+    <div></div>
+  </div>
+  <div class="flex-1 flex flex-col justify-center p-6 lg:p-10 max-w-[1600px] w-full mx-auto">
+    <nav class="flex flex-col gap-3 lg:gap-5">
+      <a href="index.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color: var(--text);">
+        <span class="group-hover:italic transition-all duration-500">Home</span>
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color: var(--accent);"></iconify-icon>
+      </a>
+      <a href="ontdek.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color: var(--text);">
+        <span class="group-hover:italic transition-all duration-500">Ontdek</span>
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color: var(--accent);"></iconify-icon>
+      </a>
+      <a href="sanctuary.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color: var(--text);">
+        <span class="group-hover:italic transition-all duration-500">Sanctuary</span>
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color: var(--accent);"></iconify-icon>
+      </a>
+      <a href="#" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color: var(--text);">
+        <span class="group-hover:italic transition-all duration-500">Table</span>
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color: var(--accent);"></iconify-icon>
+      </a>
+      <a href="shop.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color: var(--text);">
+        <span class="group-hover:italic transition-all duration-500">Shop</span>
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color: var(--accent);"></iconify-icon>
+      </a>
+      <a href="route.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color: var(--text);">
+        <span class="group-hover:italic transition-all duration-500">Routes</span>
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color: var(--accent);"></iconify-icon>
+      </a>
+      <a href="atlas.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color: var(--text);">
+        <span class="group-hover:italic transition-all duration-500">Mijn Atlas</span>
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color: var(--accent);"></iconify-icon>
+      </a>
+    </nav>
+  </div>
+  <div class="p-6 lg:p-10 max-w-[1600px] w-full mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-end gap-8">
+    <div class="flex gap-6 sm:gap-8">
+      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color: var(--text-muted);">Instagram</a>
+      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color: var(--text-muted);">Pinterest</a>
+      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color: var(--text-muted);">Contact</a>
+    </div>
+    <div class="text-xs font-semibold tracking-widest uppercase" style="color: var(--text-faint);">&copy; 2026 For Members.</div>
+  </div>
+</div>
+
+<!-- ───── Kruimelpad ───── -->
+<div class="pt-28 lg:pt-32">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <nav aria-label="Kruimelpad" class="text-xs font-semibold uppercase tracking-widest flex flex-wrap items-center gap-x-3 gap-y-1" style="color: var(--text-faint);">
+      <a href="country-frankrijk.html" class="hover:opacity-70 transition-opacity" style="color: var(--text-muted);">Frankrijk</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="region-auvergne-rhone-alpes.html" class="hover:opacity-70 transition-opacity" style="color: var(--text-muted);">Auvergne-Rhône-Alpes</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="city.html" class="hover:opacity-70 transition-opacity" style="color: var(--text-muted);">Lyon</a>
+      <span aria-hidden="true">&middot;</span>
+      <span style="color: var(--text);">Cour des Loges</span>
+    </nav>
+  </div>
+</div>
+
+<!-- ───── Hero gallery (8 + 4) ───── -->
+<section class="mt-8 lg:mt-10">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 lg:h-[640px]">
+      <div class="lg:col-span-8 aspect-[3/2] lg:aspect-auto overflow-hidden" style="background: var(--surface-alt);">
+        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&q=80&w=1800" alt="Binnenplaats Cour des Loges" class="fm-image w-full h-full object-cover" loading="eager">
+      </div>
+      <div class="lg:col-span-4 grid grid-cols-1 lg:grid-rows-2 gap-3 lg:gap-4">
+        <div class="aspect-[4/3] lg:aspect-auto overflow-hidden" style="background: var(--surface-alt);">
+          <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&q=80&w=1200" alt="Kamer met uitzicht op binnenplaats" class="fm-image w-full h-full object-cover">
+        </div>
+        <div class="aspect-[4/3] lg:aspect-auto overflow-hidden" style="background: var(--surface-alt);">
+          <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&q=80&w=1200" alt="Renaissance-detail" class="fm-image w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Titel + meta + save ───── -->
+<section class="border-t mt-16 lg:mt-24" style="border-color: var(--border);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-end">
+      <div class="lg:col-span-7">
+        <div class="text-xs font-semibold uppercase tracking-widest mb-5" style="color: var(--text-faint);">
+          01 &mdash; Sanctuary &middot; Boutique Hotel
+        </div>
+        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium leading-[1.05]" style="color: var(--text);">
+          Cour des<br><span class="italic font-normal" style="color: var(--accent);">Loges</span>
+        </h1>
+        <p class="mt-6 text-base md:text-lg font-light leading-relaxed max-w-2xl" style="color: var(--text-muted);">
+          Een Renaissance-traboule in het hart van Vieux Lyon &mdash; vier binnenplaatsen, 62 kamers, een straat die nog werkt zoals in 1567.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold uppercase tracking-widest" style="color: var(--text-faint);">
+          <span>Vieux Lyon &middot; 5e</span>
+          <span aria-hidden="true">&middot;</span>
+          <span>&euro;&euro;&euro;&euro;</span>
+          <span aria-hidden="true">&middot;</span>
+          <span>62 kamers</span>
+        </div>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9">
+        <button class="fm-save-big w-full justify-between" data-save-big="lyon-cour-des-loges" aria-label="Bewaar in Mijn Atlas">
+          <span class="flex items-center gap-3">
+            <iconify-icon class="fm-save-unsaved" icon="solar:bookmark-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+            <iconify-icon class="fm-save-saved" icon="solar:bookmark-bold" style="font-size:18px"></iconify-icon>
+            <span class="fm-save-unsaved">Bewaar in atlas</span>
+            <span class="fm-save-saved">Opgenomen in atlas</span>
+          </span>
+          <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Editorial intro ───── -->
+<section class="border-t" style="border-color: var(--border); background: var(--surface);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6">
+      <div class="lg:col-span-4">
+        <div class="text-xs font-semibold uppercase tracking-widest mb-4" style="color: var(--text-faint);">Door redactie geschreven</div>
+        <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium leading-[1.1]" style="color: var(--text);">Achter de<br><span class="italic font-normal" style="color: var(--accent);">poort</span>.</h2>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6 flex flex-col gap-6">
+        <p class="text-base md:text-lg font-light leading-relaxed" style="color: var(--text-muted);">
+          Cour des Loges zit op Rue du Bœuf in Vieux Lyon &mdash; een straat die je gemakkelijk loopt te missen, achter een poort die er hetzelfde uitziet als in 1567. Vier binnenplaatsen achter elkaar, elk met een eigen geometrie. De buitenwereld is twee meter verderop, en toch een eindeloos eind weg.
+        </p>
+        <p class="text-base md:text-lg font-light leading-relaxed" style="color: var(--text-muted);">
+          Het pand ontstond in 2003 uit vier middeleeuwse huizen die met elkaar verbonden werden. Renaissance-fresco's op een muur in de salon. Een 18e-eeuws plafond in de eetzaal. 62 kamers, geen twee identiek, omdat de geometrie van vier huizen dat onmogelijk maakt. De keuken heeft een Michelin-ster maar tegelijk een traboule die er dwars doorheen loopt &mdash; vandaar de naam.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Specs-tabel ───── -->
+<section class="border-t" style="border-color: var(--border);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 mb-12 lg:mb-16">
+      <div class="lg:col-span-4">
+        <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--text-faint);">Feiten</div>
+        <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color: var(--text);">In het kort<span class="italic font-normal" style="color: var(--accent);">.</span></h2>
+      </div>
+    </div>
+
+    <div class="text-xs font-semibold uppercase tracking-widest max-w-4xl" style="border-top: 1px solid var(--border);">
+      <div class="grid grid-cols-3 py-4" style="border-bottom: 1px solid var(--border);">
+        <div style="color: var(--text-faint);">Locatie</div>
+        <div class="col-span-2 font-medium normal-case tracking-normal text-sm" style="color: var(--text);">6 Rue du B&oelig;uf, 69005 Lyon</div>
+      </div>
+      <div class="grid grid-cols-3 py-4" style="border-bottom: 1px solid var(--border);">
+        <div style="color: var(--text-faint);">Categorie</div>
+        <div class="col-span-2 font-medium normal-case tracking-normal text-sm" style="color: var(--text);">Boutique Hotel &middot; Sanctuary</div>
+      </div>
+      <div class="grid grid-cols-3 py-4" style="border-bottom: 1px solid var(--border);">
+        <div style="color: var(--text-faint);">Stijl</div>
+        <div class="col-span-2 font-medium normal-case tracking-normal text-sm" style="color: var(--text);">Renaissance &middot; Vier binnenplaatsen</div>
+      </div>
+      <div class="grid grid-cols-3 py-4" style="border-bottom: 1px solid var(--border);">
+        <div style="color: var(--text-faint);">Kamers</div>
+        <div class="col-span-2 font-medium normal-case tracking-normal text-sm" style="color: var(--text);">62</div>
+      </div>
+      <div class="grid grid-cols-3 py-4" style="border-bottom: 1px solid var(--border);">
+        <div style="color: var(--text-faint);">Prijsklasse</div>
+        <div class="col-span-2 font-medium normal-case tracking-normal text-sm" style="color: var(--text);">&euro;&euro;&euro;&euro;</div>
+      </div>
+      <div class="grid grid-cols-3 py-4" style="border-bottom: 1px solid var(--border);">
+        <div style="color: var(--text-faint);">Telefoon</div>
+        <div class="col-span-2 font-medium normal-case tracking-normal text-sm" style="color: var(--text);">+33 4 72 77 44 44</div>
+      </div>
+      <div class="grid grid-cols-3 py-4" style="border-bottom: 1px solid var(--border);">
+        <div style="color: var(--text-faint);">Website</div>
+        <div class="col-span-2 font-medium normal-case tracking-normal text-sm">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style="color: var(--text);">
+            <span>courdesloges.com</span>
+            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" style="font-size:14px"></iconify-icon>
+          </a>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 py-4" style="border-bottom: 1px solid var(--border);">
+        <div style="color: var(--text-faint);">Reserveren</div>
+        <div class="col-span-2 font-medium normal-case tracking-normal text-sm">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style="color: var(--text);">
+            <span>Via de eigen site</span>
+            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" style="font-size:14px"></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Kaart-mock (Vieux Lyon zoom) ───── -->
+<section class="border-t" style="border-color: var(--border); background: var(--surface);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 mb-12 lg:mb-16">
+      <div class="lg:col-span-4">
+        <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--text-faint);">Op de kaart</div>
+        <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color: var(--text);">Vieux Lyon<span class="italic font-normal" style="color: var(--accent);">.</span></h2>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <p class="text-sm md:text-base font-light leading-relaxed" style="color: var(--text-muted);">
+          Het hotel staat aan Rue du Bœuf, de tweede straat als je vanaf de Saône Vieux Lyon binnenloopt. De drie pairings in deze pagina liggen alle drie op loopafstand &mdash; Daniel et Denise om de hoek, Antic Wine in dezelfde straat, het Musée des Beaux-Arts twaalf minuten over de brug.
+        </p>
+      </div>
+    </div>
+
+    <div class="relative w-full overflow-hidden" style="background: var(--surface-alt); border: 1px solid var(--border);">
+      <svg viewBox="0 0 800 400" class="w-full h-auto block" preserveAspectRatio="xMidYMid meet">
+        <!-- Grid lines voor ritme -->
+        <g stroke="var(--border)" stroke-width="0.5" opacity="0.5">
+          <line x1="0" y1="100" x2="800" y2="100"/>
+          <line x1="0" y1="200" x2="800" y2="200"/>
+          <line x1="0" y1="300" x2="800" y2="300"/>
+          <line x1="200" y1="0" x2="200" y2="400"/>
+          <line x1="400" y1="0" x2="400" y2="400"/>
+          <line x1="600" y1="0" x2="600" y2="400"/>
+        </g>
+
+        <!-- Saône — verticale zachte curve door het midden -->
+        <path d="M 420,0 Q 425,150 430,250 Q 435,350 440,400" fill="none" stroke="var(--border-strong)" stroke-width="3" opacity="0.55"/>
+
+        <!-- Vieux Lyon: zachte schaduw-zone aan de linkerkant -->
+        <rect x="100" y="80" width="280" height="280" fill="var(--accent)" opacity="0.05"/>
+
+        <!-- District-labels -->
+        <g font-family="Inter Tight, sans-serif" font-size="10" font-weight="600" fill="var(--text-faint)" letter-spacing="2" style="text-transform: uppercase;">
+          <text x="155" y="65">Vieux Lyon &middot; 5e</text>
+          <text x="500" y="65">Presqu'île &middot; 2e</text>
+          <text x="500" y="200">Terreaux &middot; 1e</text>
+          <text x="155" y="385">Fourvière</text>
+          <text x="425" y="385">Bellecour</text>
+        </g>
+
+        <!-- Pairing-pins (lichter, kleiner) -->
+        <g fill="var(--accent)" opacity="0.55">
+          <!-- Daniel et Denise — Rue du Bœuf, 4 min lopen -->
+          <circle cx="285" cy="200" r="5"/>
+          <!-- Antic Wine — zelfde straat, 2 min -->
+          <circle cx="235" cy="240" r="5"/>
+          <!-- Musée des Beaux-Arts — overkant Saône, Terreaux -->
+          <circle cx="545" cy="155" r="5"/>
+        </g>
+
+        <!-- Cour des Loges — actieve pin (groter, pulse) -->
+        <g transform="translate(255, 220)">
+          <circle r="20" fill="var(--accent)" opacity="0.18" class="fm-pin-pulse"/>
+          <circle r="9" fill="var(--accent)"/>
+          <circle r="3.5" fill="var(--bg)"/>
+        </g>
+
+        <!-- Lijn (subtiel) tussen pairing-pins en hoofd-pin -->
+        <g stroke="var(--accent)" stroke-width="0.5" opacity="0.3" stroke-dasharray="2,3">
+          <line x1="255" y1="220" x2="285" y2="200"/>
+          <line x1="255" y1="220" x2="235" y2="240"/>
+          <line x1="255" y1="220" x2="545" y2="155"/>
+        </g>
+
+      </svg>
+
+      <!-- Label voor de actieve pin -->
+      <div class="absolute left-4 bottom-4 md:left-6 md:bottom-6 max-w-xs p-4 pointer-events-auto" style="background: var(--surface); border: 1px solid var(--border-mid);">
+        <div class="text-[10px] font-semibold uppercase tracking-widest mb-1" style="color: var(--accent);">Hier</div>
+        <div class="font-serif text-xl tracking-tight font-medium mb-2" style="color: var(--text);">Cour des Loges</div>
+        <div class="text-xs font-light" style="color: var(--text-muted);">6 Rue du Bœuf, 69005</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Pairing — Combineer met ───── -->
+<section class="border-t" style="border-color: var(--border);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-end mb-12 lg:mb-16">
+      <div class="lg:col-span-5">
+        <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--text-faint);">Combineer met</div>
+        <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium leading-[1.1]" style="color: var(--text);">Een avond<br><span class="italic font-normal" style="color: var(--accent);">in Vieux Lyon</span>.</h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8">
+        <p class="text-sm md:text-base font-light leading-relaxed" style="color: var(--text-muted);">
+          Vieux Lyon ligt in een vierkant kilometer waar deze plekken op loopafstand liggen &mdash; een avond te combineren als je het tijdsblok hebt.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
+
+      <a href="entry.html" class="group flex flex-col gap-3 md:gap-5 relative">
+        <div class="relative w-full aspect-square overflow-hidden" style="background: var(--surface-alt);">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800" alt="Daniel et Denise" class="fm-image object-cover w-full h-full group-hover:scale-105">
+          <button class="fm-save-card" data-save="lyon-daniel-et-denise" aria-label="Bewaar in Mijn Atlas">
+            <iconify-icon class="fm-save-unsaved" icon="solar:bookmark-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+            <iconify-icon class="fm-save-saved" icon="solar:bookmark-bold" style="font-size:18px"></iconify-icon>
+          </button>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <div class="text-[10px] font-semibold uppercase tracking-widest" style="color: var(--accent);">Table &middot; Bouchon</div>
+          <div class="flex justify-between items-start">
+            <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium pr-2" style="color: var(--text);">Daniel et Denise</h3>
+            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-lg md:text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-2" style="color: var(--text-faint);"></iconify-icon>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest" style="color: var(--text-faint);">
+            <iconify-icon icon="solar:walking-linear" stroke-width="1.5" style="font-size:14px"></iconify-icon>
+            <span>4 min lopen</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="entry.html" class="group flex flex-col gap-3 md:gap-5 relative">
+        <div class="relative w-full aspect-square overflow-hidden" style="background: var(--surface-alt);">
+          <img src="https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&q=80&w=800" alt="Antic Wine" class="fm-image object-cover w-full h-full group-hover:scale-105">
+          <button class="fm-save-card" data-save="lyon-antic-wine" aria-label="Bewaar in Mijn Atlas">
+            <iconify-icon class="fm-save-unsaved" icon="solar:bookmark-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+            <iconify-icon class="fm-save-saved" icon="solar:bookmark-bold" style="font-size:18px"></iconify-icon>
+          </button>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <div class="text-[10px] font-semibold uppercase tracking-widest" style="color: var(--accent);">Shop &middot; Wijnhandel</div>
+          <div class="flex justify-between items-start">
+            <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium pr-2" style="color: var(--text);">Antic Wine</h3>
+            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-lg md:text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-2" style="color: var(--text-faint);"></iconify-icon>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest" style="color: var(--text-faint);">
+            <iconify-icon icon="solar:walking-linear" stroke-width="1.5" style="font-size:14px"></iconify-icon>
+            <span>2 min lopen</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="entry.html" class="group flex flex-col gap-3 md:gap-5 relative">
+        <div class="relative w-full aspect-square overflow-hidden" style="background: var(--surface-alt);">
+          <img src="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&q=80&w=800" alt="Musée des Beaux-Arts" class="fm-image object-cover w-full h-full group-hover:scale-105">
+          <button class="fm-save-card" data-save="lyon-beaux-arts" aria-label="Bewaar in Mijn Atlas">
+            <iconify-icon class="fm-save-unsaved" icon="solar:bookmark-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+            <iconify-icon class="fm-save-saved" icon="solar:bookmark-bold" style="font-size:18px"></iconify-icon>
+          </button>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <div class="text-[10px] font-semibold uppercase tracking-widest" style="color: var(--accent);">Culture &middot; Museum</div>
+          <div class="flex justify-between items-start">
+            <h3 class="font-serif text-2xl md:text-3xl tracking-tight font-medium pr-2" style="color: var(--text);">Musée des Beaux-Arts</h3>
+            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-lg md:text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-2" style="color: var(--text-faint);"></iconify-icon>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest" style="color: var(--text-faint);">
+            <iconify-icon icon="solar:walking-linear" stroke-width="1.5" style="font-size:14px"></iconify-icon>
+            <span>12 min lopen</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───── Member-paneel ───── -->
+<section class="border-t" style="border-color: var(--border); background: var(--surface-alt);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 mb-12 lg:mb-16">
+      <div class="lg:col-span-5">
+        <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--text-faint);">Voor leden</div>
+        <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium leading-[1.1]" style="color: var(--text);">Mijn relatie<br><span class="italic font-normal" style="color: var(--accent);">met deze plek</span>.</h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8">
+        <p class="text-sm md:text-base font-light leading-relaxed" style="color: var(--text-muted);">
+          Niemand ziet dit behalve jij. Een privé-laag bovenop de pagina &mdash; markeer waar je bent geweest, schrijf wat je je wil herinneren, voeg toe aan een lijst voor later.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+
+      <!-- Links: Status + Notitie -->
+      <div class="flex flex-col gap-10">
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-widest mb-4" style="color: var(--text-faint);">Status</div>
+          <div class="flex flex-wrap gap-2">
+            <button class="fm-status" data-status="wishlist">
+              <iconify-icon icon="solar:moon-stars-linear" stroke-width="1.5" style="font-size:14px"></iconify-icon>
+              <span>Wishlist</span>
+            </button>
+            <button class="fm-status" data-status="visited">
+              <iconify-icon icon="solar:check-circle-linear" stroke-width="1.5" style="font-size:14px"></iconify-icon>
+              <span>Visited</span>
+            </button>
+            <button class="fm-status" data-status="favorite">
+              <iconify-icon icon="solar:heart-linear" stroke-width="1.5" style="font-size:14px"></iconify-icon>
+              <span>Favorite</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-baseline mb-4">
+            <div class="text-xs font-semibold uppercase tracking-widest" style="color: var(--text-faint);">Notitie &mdash; privé</div>
+            <span id="fm-note-status" class="text-[10px] font-mono" style="color: var(--text-faint);"></span>
+          </div>
+          <textarea
+            id="fm-note"
+            rows="4"
+            placeholder="Een gedachte voor terug — een tafel die je nog wilt, een kamer die naar de binnenplaats kijkt, wie er meeging…"
+            class="w-full p-4 text-sm font-light leading-relaxed bg-transparent focus:outline-none transition-colors resize-none"
+            style="border: 1px solid var(--border-strong); color: var(--text); font-family: inherit;"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Rechts: Lists-stub -->
+      <div class="flex flex-col gap-10">
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-widest mb-4" style="color: var(--text-faint);">Lijsten</div>
+          <button class="w-full inline-flex items-center justify-between p-4 text-sm font-medium transition-all cursor-not-allowed opacity-60"
+            style="border: 1px dashed var(--border-strong); color: var(--text-muted);" disabled>
+            <span class="inline-flex items-center gap-3">
+              <iconify-icon icon="solar:add-circle-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+              <span>Voeg toe aan een lijst</span>
+            </span>
+            <span class="text-[10px] uppercase tracking-widest" style="color: var(--text-faint);">v1.5</span>
+          </button>
+          <p class="mt-3 text-xs font-light leading-relaxed" style="color: var(--text-faint);">
+            Lijsten ("Bruiloft Toscane", "Bucket Japan", …) volgen zodra Mijn Atlas live is. Tot dan zijn je status-pills en notities al persistent.
+          </p>
+        </div>
+
+        <div class="pt-6" style="border-top: 1px solid var(--border);">
+          <a href="atlas.html" class="group inline-flex items-center gap-3 text-sm font-medium transition-colors" style="color: var(--text-muted);">
+            <iconify-icon icon="solar:routing-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+            <span>Bekijk Mijn Atlas</span>
+            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="group-hover:translate-x-1 transition-transform" style="font-size:16px"></iconify-icon>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───── In de buurt — andere hotels in Lyon ───── -->
+<section class="border-t" style="border-color: var(--border);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-16 gap-6">
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--text-faint);">Vergelijkbaar in Lyon</div>
+        <h2 class="font-serif text-3xl md:text-4xl tracking-tight font-medium" style="color: var(--text);">Andere hotels<span class="italic font-normal" style="color: var(--accent);">.</span></h2>
+      </div>
+      <a href="lyon-sanctuary.html" class="group flex items-center gap-3 text-sm font-medium transition-colors" style="color: var(--text-muted);">
+        <span>Alle Sanctuary in Lyon</span>
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+      </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
+
+      <a href="entry.html" class="group flex flex-col gap-3 md:gap-5 relative">
+        <div class="relative w-full aspect-square overflow-hidden" style="background: var(--surface-alt);">
+          <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&q=80&w=800" alt="Villa Florentine" class="fm-image object-cover w-full h-full group-hover:scale-105">
+          <button class="fm-save-card" data-save="lyon-villa-florentine" aria-label="Bewaar in Mijn Atlas">
+            <iconify-icon class="fm-save-unsaved" icon="solar:bookmark-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+            <iconify-icon class="fm-save-saved" icon="solar:bookmark-bold" style="font-size:18px"></iconify-icon>
+          </button>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-start">
+            <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium pr-2" style="color: var(--text);">Villa Florentine</h3>
+            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-base md:text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1" style="color: var(--text-faint);"></iconify-icon>
+          </div>
+          <span class="text-[10px] md:text-xs font-semibold uppercase tracking-widest" style="color: var(--text-faint);">Fourvière &middot; 5e</span>
+        </div>
+      </a>
+
+      <a href="entry.html" class="group flex flex-col gap-3 md:gap-5 relative">
+        <div class="relative w-full aspect-square overflow-hidden" style="background: var(--surface-alt);">
+          <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&q=80&w=800" alt="Hôtel des Artistes" class="fm-image object-cover w-full h-full group-hover:scale-105">
+          <button class="fm-save-card" data-save="lyon-hotel-des-artistes" aria-label="Bewaar in Mijn Atlas">
+            <iconify-icon class="fm-save-unsaved" icon="solar:bookmark-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+            <iconify-icon class="fm-save-saved" icon="solar:bookmark-bold" style="font-size:18px"></iconify-icon>
+          </button>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-start">
+            <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium pr-2" style="color: var(--text);">Hôtel des Artistes</h3>
+            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-base md:text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1" style="color: var(--text-faint);"></iconify-icon>
+          </div>
+          <span class="text-[10px] md:text-xs font-semibold uppercase tracking-widest" style="color: var(--text-faint);">Bellecour &middot; 2e</span>
+        </div>
+      </a>
+
+      <a href="entry.html" class="group flex flex-col gap-3 md:gap-5 relative">
+        <div class="relative w-full aspect-square overflow-hidden" style="background: var(--surface-alt);">
+          <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&q=80&w=800" alt="MiHotel Mercière" class="fm-image object-cover w-full h-full group-hover:scale-105">
+          <button class="fm-save-card" data-save="lyon-mihotel" aria-label="Bewaar in Mijn Atlas">
+            <iconify-icon class="fm-save-unsaved" icon="solar:bookmark-linear" stroke-width="1.5" style="font-size:18px"></iconify-icon>
+            <iconify-icon class="fm-save-saved" icon="solar:bookmark-bold" style="font-size:18px"></iconify-icon>
+          </button>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-start">
+            <h3 class="font-serif text-xl md:text-2xl tracking-tight font-medium pr-2" style="color: var(--text);">MiHotel Mercière</h3>
+            <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-base md:text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0 mt-1" style="color: var(--text-faint);"></iconify-icon>
+          </div>
+          <span class="text-[10px] md:text-xs font-semibold uppercase tracking-widest" style="color: var(--text-faint);">Presqu'île &middot; 2e</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───── Brug terug naar Lyon ───── -->
+<section class="border-t" style="border-color: var(--border);">
+  <div class="max-w-[1600px] mx-auto px-6 lg:px-10 py-20 lg:py-28">
+    <a href="city.html" class="group inline-flex items-center gap-5 font-serif text-3xl md:text-5xl tracking-tight font-medium transition-colors" style="color: var(--text);">
+      <iconify-icon icon="solar:arrow-left-linear" stroke-width="1.5" class="text-2xl md:text-4xl group-hover:-translate-x-2 transition-transform" style="color: var(--text-faint);"></iconify-icon>
+      <span>Terug naar <span class="italic font-normal" style="color: var(--accent);">Lyon</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- ───── Footer ───── -->
+<footer class="border-t pt-24 pb-12 px-6 lg:px-10" style="border-color: var(--border); background: var(--surface-alt);">
+  <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-8 mb-24">
+    <div class="md:col-span-5 flex flex-col items-start gap-8">
+      <a href="index.html" aria-label="For Members. Home" style="color: var(--text);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-10" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+      </a>
+      <div class="font-serif text-3xl tracking-tight font-medium" style="color: var(--text);">For Members<span class="italic font-normal" style="color: var(--accent);">.</span></div>
+      <p class="text-sm font-light leading-relaxed max-w-sm" style="color: var(--text-muted);">
+        Een doorlopende verzameling van uitmuntendheid in design, gastvrijheid en esthetiek. Gecureerd door Peter &amp; Birgit.
+      </p>
+    </div>
+    <div class="md:col-span-2 flex flex-col gap-4">
+      <div class="text-xs font-semibold uppercase tracking-widest mb-2" style="color: var(--text);">Index</div>
+      <a href="sanctuary.html" class="text-sm transition-colors" style="color: var(--text-muted);">Sanctuary</a>
+      <a href="#" class="text-sm transition-colors" style="color: var(--text-muted);">Table</a>
+      <a href="shop.html" class="text-sm transition-colors" style="color: var(--text-muted);">Shop</a>
+      <a href="#" class="text-sm transition-colors" style="color: var(--text-muted);">Culture</a>
+      <a href="route.html" class="text-sm transition-colors" style="color: var(--text-muted);">Routes</a>
+    </div>
+    <div class="md:col-span-5 flex flex-col gap-4">
+      <div class="text-xs font-semibold uppercase tracking-widest mb-2" style="color: var(--text);">Private Newsletter</div>
+      <p class="text-sm font-light max-w-md" style="color: var(--text-muted);">Stille toevoegingen aan de collectie, eens per maand in je inbox. Geen spam, alleen wat het waard is.</p>
+      <div class="relative w-full max-w-md mt-2">
+        <input type="email" placeholder="jouw@adres.com" class="w-full bg-transparent py-3 pr-10 text-sm focus:outline-none transition-colors" style="border-bottom: 1px solid var(--border-strong); color: var(--text);">
+        <button class="absolute right-0 top-1/2 -translate-y-1/2 transition-colors" style="color: var(--text-faint);" aria-label="Inschrijven">
+          <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-xl"></iconify-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center pt-8 text-xs font-light" style="border-top: 1px solid var(--border); color: var(--text-faint);">
+    <p>&copy; 2026 For Members. Gecureerd door Peter &amp; Birgit.</p>
+    <div class="flex gap-6 mt-4 md:mt-0">
+      <a href="#" class="transition-colors hover:opacity-70">Instagram</a>
+      <a href="#" class="transition-colors hover:opacity-70">Pinterest</a>
+      <a href="#" class="transition-colors hover:opacity-70">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ───── Scripts ───── -->
+<script>
+// Menu open/close
+(function(){
+  var btn = document.getElementById('menu-btn');
+  var close = document.getElementById('close-btn');
+  var menu = document.getElementById('mobile-menu');
+  if (btn && menu) btn.addEventListener('click', function(){ menu.classList.remove('opacity-0','pointer-events-none'); });
+  if (close && menu) close.addEventListener('click', function(){ menu.classList.add('opacity-0','pointer-events-none'); });
+})();
+
+// Save bookmark — gedeeld met city.html (fm-saved-entries)
+(function(){
+  var KEY = 'fm-saved-entries';
+  function getSaved(){ try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e){ return []; } }
+  function setSaved(arr){ try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch(e){} }
+  function refresh(){
+    var saved = getSaved();
+    // Card-style save buttons
+    document.querySelectorAll('[data-save]').forEach(function(btn){
+      btn.dataset.state = saved.indexOf(btn.dataset.save) >= 0 ? 'saved' : '';
+    });
+    // Big save button (header)
+    document.querySelectorAll('[data-save-big]').forEach(function(btn){
+      btn.dataset.state = saved.indexOf(btn.dataset.saveBig) >= 0 ? 'saved' : '';
+    });
+  }
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && (e.target.closest('[data-save]') || e.target.closest('[data-save-big]'));
+    if (!btn) return;
+    e.preventDefault(); e.stopPropagation();
+    var id = btn.dataset.save || btn.dataset.saveBig;
+    var saved = getSaved();
+    var i = saved.indexOf(id);
+    if (i >= 0) saved.splice(i, 1); else saved.push(id);
+    setSaved(saved);
+    refresh();
+  });
+  refresh();
+})();
+
+// Status pills (wishlist / visited / favorite) — per-entry
+(function(){
+  var ID = 'lyon-cour-des-loges';
+  var KEY = 'fm-status-' + ID;
+  function get(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+  function set(s){ try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e){} }
+  function refresh(){
+    var s = get();
+    document.querySelectorAll('[data-status]').forEach(function(btn){
+      btn.dataset.state = s[btn.dataset.status] ? 'active' : '';
+    });
+  }
+  document.querySelectorAll('[data-status]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var s = get();
+      s[btn.dataset.status] = !s[btn.dataset.status];
+      set(s);
+      refresh();
+    });
+  });
+  refresh();
+})();
+
+// Notitie auto-save met debounce
+(function(){
+  var ID = 'lyon-cour-des-loges';
+  var KEY = 'fm-note-' + ID;
+  var ta = document.getElementById('fm-note');
+  var statusEl = document.getElementById('fm-note-status');
+  if (!ta) return;
+  ta.value = localStorage.getItem(KEY) || '';
+  var t;
+  ta.addEventListener('input', function(){
+    if (statusEl) statusEl.textContent = '...';
+    clearTimeout(t);
+    t = setTimeout(function(){
+      try { localStorage.setItem(KEY, ta.value); if (statusEl) statusEl.textContent = 'opgeslagen'; } catch(e){}
+    }, 400);
+  });
+})();
+</script>
+
+</body>
+</html>
