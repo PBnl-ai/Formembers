@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- v0.1 — 13 mei 2026 — stub voor Routes. Hero + 'Volgt in v0.2'. -->
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Routes | For Members.</title>
+<meta name="robots" content="noindex, nofollow">
+<script>(function(){var t=localStorage.getItem('fm-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { darkMode: ['class', '[data-theme="dark"]'], theme: { extend: { colors: { taupe: '#afa297' }, fontFamily: { serif: ['Fraunces', 'serif'], sans: ['"Inter Tight"', 'sans-serif'] } } } }
+</script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<style>
+:root,[data-theme="light"]{--bg:#f4f2ef;--bg-deep:#fdfcfb;--surface:#fdfcfb;--surface-alt:#ede9e4;--text:#1a1816;--text-sec:#2e2b28;--text-muted:#524d48;--text-faint:#8a857f;--text-dim:#9e9993;--border:#e6e2de;--border-mid:#ddd9d4;--border-strong:#cec9c3;--accent:#afa297;}
+[data-theme="dark"]{--bg:#050505;--bg-deep:#030303;--surface:#0a0a0a;--surface-alt:#0d0d0c;--text:#fff;--text-sec:#e2e2e2;--text-muted:#a3a3a3;--text-faint:#666;--text-dim:#404040;--border:rgba(255,255,255,0.06);--border-mid:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.10);--accent:#afa297;}
+html,body{background:var(--bg);color:var(--text);}
+body{transition:background-color .3s ease,color .3s ease;font-feature-settings:"ss01","ss02";}
+*,*::before,*::after{border-color:var(--border);}
+::selection{background:rgba(175,162,151,.30);color:var(--text);}
+.theme-toggle{position:fixed;top:24px;right:24px;z-index:100;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border-mid);color:var(--text);cursor:pointer;backdrop-filter:blur(12px);transition:all .3s cubic-bezier(0.16,1,0.3,1);}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
+[data-theme="dark"] .show-light{display:none;}[data-theme="light"] .show-dark{display:none;}
+</style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+<button class="theme-toggle" onclick="var c=document.documentElement.getAttribute('data-theme');var n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('fm-theme',n);" aria-label="Wissel thema">
+  <iconify-icon class="show-dark" icon="solar:sun-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+  <iconify-icon class="show-light" icon="solar:moon-linear" stroke-width="1.5" style="font-size:20px"></iconify-icon>
+</button>
+
+<nav class="fixed top-0 w-full z-50 p-6 lg:p-10 flex justify-between items-center pointer-events-none" style="background:rgba(244,242,239,0.5);backdrop-filter:blur(12px);">
+  <div class="pointer-events-auto">
+    <button id="menu-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Menu" style="color:var(--text);">
+      <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5" style="font-size:28px"></iconify-icon>
+    </button>
+  </div>
+  <a href="index.html" class="absolute left-1/2 -translate-x-1/2 pointer-events-auto" aria-label="For Members. Home" style="color:var(--text);">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-7 lg:h-8" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+  </a>
+  <div class="flex gap-8 items-center pointer-events-auto" style="color:var(--text);">
+    <a href="ontdek.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity hidden md:block">Ontdek</a>
+    <a href="atlas.html" class="text-sm font-medium tracking-wide uppercase hover:opacity-50 transition-opacity">Mijn Atlas</a>
+  </div>
+</nav>
+
+<div id="mobile-menu" class="fixed inset-0 z-[60] opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col" style="background:var(--bg-deep);transition-timing-function:cubic-bezier(0.16,1,0.3,1);">
+  <div class="p-6 lg:p-10 flex justify-between items-center relative">
+    <button id="close-btn" class="flex items-center justify-center hover:opacity-50 transition-opacity" aria-label="Sluit menu" style="color:var(--text);">
+      <iconify-icon icon="solar:close-linear" stroke-width="1.5" style="font-size:28px"></iconify-icon>
+    </button>
+    <a href="index.html" class="absolute left-1/2 -translate-x-1/2" style="color:var(--text);">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-7 lg:h-8" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+    </a>
+    <div></div>
+  </div>
+  <div class="flex-1 flex flex-col justify-center p-6 lg:p-10 max-w-[1600px] w-full mx-auto">
+    <nav class="flex flex-col gap-3 lg:gap-5">
+      <a href="index.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color:var(--text);"><span class="group-hover:italic transition-all duration-500">Home</span><iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color:var(--accent);"></iconify-icon></a>
+      <a href="ontdek.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color:var(--text);"><span class="group-hover:italic transition-all duration-500">Ontdek</span><iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color:var(--accent);"></iconify-icon></a>
+      <a href="sanctuary.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color:var(--text);"><span class="group-hover:italic transition-all duration-500">Sanctuary</span><iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color:var(--accent);"></iconify-icon></a>
+      <a href="coming-soon.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color:var(--text);"><span class="group-hover:italic transition-all duration-500">Table</span><iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color:var(--accent);"></iconify-icon></a>
+      <a href="shop.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color:var(--text);"><span class="group-hover:italic transition-all duration-500">Shop</span><iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color:var(--accent);"></iconify-icon></a>
+      <a href="route.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color:var(--text);"><span class="group-hover:italic transition-all duration-500">Routes</span><iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color:var(--accent);"></iconify-icon></a>
+      <a href="atlas.html" class="group font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight font-medium w-fit flex items-center gap-6" style="color:var(--text);"><span class="group-hover:italic transition-all duration-500">Mijn Atlas</span><iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="text-4xl lg:text-6xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style="color:var(--accent);"></iconify-icon></a>
+    </nav>
+  </div>
+  <div class="p-6 lg:p-10 max-w-[1600px] w-full mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-end gap-8">
+    <div class="flex gap-6 sm:gap-8">
+      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color:var(--text-muted);">Instagram</a>
+      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color:var(--text-muted);">Pinterest</a>
+      <a href="#" class="text-xs font-semibold tracking-widest uppercase" style="color:var(--text-muted);">Contact</a>
+    </div>
+    <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--text-faint);">&copy; 2026 For Members.</div>
+  </div>
+</div>
+
+<!-- ───── Hero — Stub-pagina ───── -->
+<header class="min-h-screen flex flex-col p-6 lg:p-10 relative overflow-hidden" style="background:var(--bg);">
+  <div class="flex justify-between items-start text-xs font-semibold uppercase tracking-widest pt-20 lg:pt-24" style="color:var(--text-faint);">
+    <div>Voor leden</div>
+    <div>Volgt in v0.2</div>
+  </div>
+  <div class="flex-1 flex flex-col justify-center max-w-[1600px] mx-auto w-full">
+    <div class="text-xs font-semibold uppercase tracking-widest mb-6" style="color:var(--text-faint);">For Members.</div>
+    <h1 class="font-serif font-medium tracking-tight leading-[0.95]" style="font-size:clamp(3.5rem,11vw,11rem);color:var(--text);">
+      <span class="italic font-normal" style="color:var(--accent);">Routes</span>.
+    </h1>
+    <p class="mt-12 text-base md:text-lg font-light leading-relaxed max-w-xl" style="color:var(--text-muted);">
+      Geordende reeksen plekken &mdash; thematische routes door een regio of langs een gedachte. Een week designhotels van Milaan tot Como, een wijnroute van Reims naar Aÿ, een traboule-wandeling door Lyon. Volgt in v0.2.
+    </p>
+    <div class="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-widest" style="color:var(--text-faint);">
+      <span>Route du Soleil</span>
+      <span aria-hidden="true">&middot;</span>
+      <span>Modernist Italy</span>
+      <span aria-hidden="true">&middot;</span>
+      <span>Champagneroute</span>
+    </div>
+  </div>
+  <div class="flex justify-between items-end text-xs font-semibold uppercase tracking-widest" style="color:var(--text-faint);">
+    <a href="city.html" class="group inline-flex items-center gap-3 hover:opacity-70 transition-opacity">
+      <iconify-icon icon="solar:arrow-left-linear" stroke-width="1.5" class="group-hover:-translate-x-1 transition-transform" style="font-size:14px"></iconify-icon>
+      <span>Terug naar Lyon</span>
+    </a>
+    <a href="index.html" class="group inline-flex items-center gap-3 hover:opacity-70 transition-opacity">
+      <span>Naar home</span>
+      <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="group-hover:translate-x-1 transition-transform" style="font-size:14px"></iconify-icon>
+    </a>
+  </div>
+</header>
+
+<!-- ───── Footer ───── -->
+<footer class="border-t pt-24 pb-12 px-6 lg:px-10" style="border-color:var(--border);background:var(--surface-alt);">
+  <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+    <div class="flex items-center gap-6">
+      <a href="index.html" aria-label="For Members. Home" style="color:var(--text);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.14 31.86" class="h-8" fill="currentColor"><path d="M31.09,18.47v11.8c-.05.34.19.65.52.7.06,0,.12,0,.18,0h2.35v.9h-7.78v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18v-6.03l1.69-5.77ZM29.41,5.63l-10.42,26.23-2.15-5.63L27,.45h7.13v.9h-2.35c-.73,0-2.38,4.28-2.38,4.28Z"/><path d="M7.14,30.27c-.05.34.19.65.52.7.06,0,.12,0,.18,0h4.34v.9H0v-.9h2.35c.34.05.65-.19.7-.52,0-.06,0-.12,0-.18V1.94c0-.39-.23-.59-.7-.59H0V.44h7.12l.02,29.82ZM9.65.45h5.86c1.86.07,3.72-.08,5.54-.45-.35,1.87-.5,3.78-.45,5.68v2.35h-1.15l-.75-5.09c-.07-.74-.54-1.09-1.4-1.09h-7.65V.45Z"/><path d="M9.65,13.07h1.7c.34,0,.54-.23.59-.7l.25-3.1h.9v8.98h-.9l-.25-3.1c-.07-.47-.27-.7-.59-.7h-1.7v-1.38Z"/></svg>
+      </a>
+      <div class="font-serif text-xl tracking-tight" style="color:var(--text);">For Members<span class="italic font-normal" style="color:var(--accent);">.</span></div>
+    </div>
+    <p class="text-xs font-light" style="color:var(--text-faint);">&copy; 2026 For Members. Gecureerd door Peter &amp; Birgit.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn=document.getElementById('menu-btn');var close=document.getElementById('close-btn');var menu=document.getElementById('mobile-menu');
+  if(btn&&menu)btn.addEventListener('click',function(){menu.classList.remove('opacity-0','pointer-events-none');});
+  if(close&&menu)close.addEventListener('click',function(){menu.classList.add('opacity-0','pointer-events-none');});
+})();
+</script>
+
+</body>
+</html>
