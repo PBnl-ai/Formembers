@@ -16,6 +16,8 @@
 
 Een private editorial atlas voor stille luxe. Hotels, restaurants, winkels, musea, design — wereldwijd, met dichtheid-gedreven stadspagina's, AI-gegenereerde context, en personalisatie voor ingelogde members. Onderdeel van Studio PB.NL.
 
+**Naam — definitief:** *For Members.* (mét punt). Werknaam "PORTAL" is op 13 mei 2026 afgevoerd. Het Vercel-project heet intern nog `portal` omdat de project-ID stabiel moet blijven, maar overal in copy, GitHub-repo, domein en titels is het For Members.
+
 **Toon:** ingetogen, editorial, niet sjiek. We schrijven als magazine, niet als directory.
 
 **Niet:** een reisgids, een marktplaats, een Trustpilot-kloon. Géén punten, badges, of streaks. Géén "luxueus" of "onvergetelijk" in copy.
@@ -51,32 +53,63 @@ Glass-morfisme, shimmer, scanlines, heartbeat glow, flashlight, corner marks, mo
 
 ---
 
-## Bouwvolgorde
+## Status — MVP-demo v0.1 (13 mei 2026)
 
-We bouwen statisch klikbaar — geen backend, geen build-step, gewoon HTML met Tailwind CDN zoals de bestaande pagina's. Volgorde:
+Gepubliceerd op **formembers.nl** via Vercel · git-tag `v0.1-mvp-demo` op GitHub PBnl-ai/Formembers.
 
-1. **City-pagina** (bv. Lyon) — bevat alle nieuwe concepten: breadcrumb, hero, secties per categorie, kaart, "in de buurt", member-toggles. Begin hier.
-2. **Entry-detail** (één hotel of restaurant binnen Lyon) — verdieping van City.
-3. **Country-pagina** (Frankrijk, met Lyon als sub) — vereenvoudiging van City.
-4. **My Atlas** — ingelogd dashboard met saved entries op kaart, lists, notes.
-5. **Home** — als laatste, etalage van 1–4.
-6. **Route-pagina** (Route du Soleil) — losse cross-cutter.
-7. **Auth** (sign-up, login, settings) — minimaal, statisch.
+**12 klikbare pagina's, allemaal in dezelfde stack:**
 
-Niet zes pagina's tegelijk half-af. Eerst City *écht* af, dan pas door.
+| Pagina | Doel |
+|---|---|
+| `index.html` | Home — hero (klikbaar naar Country), concept-blokken, landen, categorie-overzicht, steden-scroll, nieuw-section |
+| `country.html` | Frankrijk — hero, AI-intro, Lyon prominent + 3 teaser-steden, 4 categorie-secties |
+| `city.html` | Lyon — hero, intro, entries per categorie |
+| `entry.html` | Cour des Loges Lyon — hero, gallery, feiten, in de buurt |
+| `atlas.html` | Mijn Atlas — saved entries dashboard, lists, status |
+| `route.html` | Routes — Route du Soleil als voorbeeld |
+| `auth.html` | Inloggen / Aanmelden |
+| `coming-soon.html` | Volgt — placeholder voor unbuilt categorieën |
+| `ontdek.html`, `sanctuary.html`, `sanctuary-aman-tokyo.html`, `shop.html` | Categorie-pagina's, vroege stijlreferentie (gemigreerd naar pb-* tokens, consistent met de rest) |
+| `HUISSTIJL.html` | Design-systeem reference, niet productie |
+
+**Wat overal consistent is geregeld (verwacht het, breek het niet):**
+- Fraunces + Inter Tight, taupe-accent `#afa297`, border-radius 0
+- pb-* / fm-* CSS-vars + tokens — géén stone-* of hex-codes
+- Fixed `nav.fm-nav-bar` met: aurora drift achter de blur (22s loop, GPU-accelerated), search-dropdown als sibling binnen `<nav>`, theme-toggle in fullscreen menu footer (níet meer fixed top-right)
+- Anti-flash script + `data-theme="light|dark"` + `localStorage.fm-theme`
+- `<meta robots="noindex,nofollow">` op alle 12 pagina's — demo blijft uit Google
+- Page titles consistent als `[Pagina] | For Members.` (NL)
+- Hero-foto's lokaal in `assets/` als WebP (frankrijk.webp 256KB, lyon.webp 426KB) of geoptimaliseerd JPG — géén kapotte Unsplash-URLs meer
+- Op mobiel zijn de concept-uitleg blokken op de homepage `fm-collapsible` (titel + pijl, body uitvouwbaar)
+
+**Niet meer aanwezig (regressies hier opnieuw introduceren = fout):**
+- Geen `client/` of `src/` directories, geen build-step
+- Geen `position: relative` op `nav.fm-nav-bar` (overrulet `position: fixed` van Tailwind — top-balk verdwijnt bij scrollen)
+- Geen Engelstalige page titles of UI-copy
+- Geen werknaam "PORTAL" of "L'INDEX" in user-zichtbare tekst
+
+---
+
+## Volgende stappen na MVP-demo
+
+Niet meer "één pagina afmaken" — die fase is voorbij. Nu meer thematisch:
+
+1. **Echte kaart** op `atlas.html` + `entry.html` (Google Maps embed of Mapbox) — vervangt de huidige mock-SVGs.
+2. **Tweede land** (bv. Japan met Tokyo + Aman Tokyo) om te bewijzen dat het Country/City/Entry patroon schaalt zonder copy-paste-rot.
+3. **CMS-laag** — entries staan nu hardcoded in HTML. Beslissingsmoment: Notion-driven, simpele JSON + static-gen, of vooruit naar Next.js + Drizzle/Neon (zoals Recepten/PerfectMoods).
+4. **Member-laag** — Save/Lists/Status werkt nu via `localStorage`. Voor echte gebruikers: auth + database.
+
+Bouwvolgorde voor de toekomst: probeer steeds één van bovenstaande thema's af te ronden voor je aan de volgende begint.
 
 ---
 
 ## Bestaande HTMLs — ALTIJD eerst lezen
 
-De repo bevat al:
+Sinds v0.1-mvp-demo zijn alle 12 pagina's gemigreerd naar dezelfde stack — er zijn dus géén "oude" pagina's meer. Maar voor je iets bouwt:
 
-- `index.html` — home (oude versie, plat design, géén concepten toegepast)
-- `shop.html`, `sanctuary.html`, `sanctuary-aman-tokyo.html`, `ontdek.html` — stijlreferentie
+**REGEL — niet onderhandelbaar:** open eerst `index.html` (rijkste page) en `country.html` (het Country/City pattern), bestudeer header, footer, nav, card-patronen, breakpoints, manier waarop overlines + serif-koppen + meta-labels gestapeld worden. Hergebruik die structuur — niet vanaf nul beginnen, niet "moderner" maken.
 
-**REGEL — niet onderhandelbaar:** voor je *één regel code schrijft* voor een nieuwe pagina, open je eerst `index.html` en `sanctuary.html`. Bestudeer header, footer, navigatie, card-patronen, breakpoints, manier waarop overlines + serif-koppen + meta-labels gestapeld worden. Die structuur hergebruiken — niet vanaf nul beginnen, niet "moderner" maken.
-
-**Bij twijfel:** `HUISSTIJL.html` wint van de bestaande HTMLs (want die HTMLs gebruiken nog géén CSS-variabelen, géén theme-toggle, géén Fraunces, géén taupe-accent). Maar de *structuur* uit de bestaande pagina's neem je over.
+**Bij twijfel:** `HUISSTIJL.html` wint — dat is het design-systeem reference. De productie-pagina's volgen het, maar `HUISSTIJL.html` is autoritatief over kleuren, fonts, schaal, componenten.
 
 ---
 
@@ -131,13 +164,16 @@ Géén `/assets/`, géén `/css/`, géén `/components/` map. Alles inline. Pas 
 
 ## Open vragen — kom hier niet zelf op uit, vraag terug
 
-- Naamgeving definitief: "For Members." of "PORTAL."? (Werknaam in dit doc: For Members.)
 - City-promotion drempel: 5+2 categorieën — exact zo aanhouden of instelbaar maken in CMS?
 - Co-curatie (partner-account met edit-rechten) — day-1 of v1.5?
 - Public lists ("Birgit's Tokyo edit") — vrij publiceren of redactionele review?
-- Theme-toggle in nav zichtbaar of alleen in account-settings?
 
-Bij elk van deze: vraag terug aan Bart voor je iets bouwt dat ervan uitgaat.
+Bij elk van deze: vraag terug aan Peter voor je iets bouwt dat ervan uitgaat.
+
+### Beslist sinds v0.1-mvp-demo
+
+- ✅ **Naamgeving** — *For Members.* (mét punt). PORTAL is afgevoerd.
+- ✅ **Theme-toggle locatie** — in de fullscreen menu footer met "Light mode" / "Dark mode" label. Niet meer als fixed knop top-right.
 
 ---
 
@@ -151,4 +187,4 @@ Bij elk van deze: vraag terug aan Bart voor je iets bouwt dat ervan uitgaat.
 
 ---
 
-*Werkdocument · v0.1 · 13 mei 2026 · Studio PB.NL*
+*Werkdocument · v0.2 · 13 mei 2026 · Studio PB.NL*
