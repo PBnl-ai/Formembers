@@ -37,6 +37,7 @@ Never use raw hex values inline in HTML. All colors are defined via Tailwind con
 | Token name   | Value     | Usage                         |
 |--------------|-----------|-------------------------------|
 | alabaster    | #F8F8F7   | Page background, nav text     |
+| taupe        | #D1BCAF   | Accent / steun kleur — italic accent in headings ("curated guide", "& Retreats", etc.) |
 | stone-900    | Tailwind  | Primary text, dark sections   |
 | stone-600    | Tailwind  | Body text, descriptions       |
 | stone-500    | Tailwind  | Secondary text, labels        |
@@ -79,7 +80,7 @@ Then use bg-alabaster instead of bg-[#F8F8F7] throughout.
 | Nav items          | text-sm font-medium tracking-wide uppercase                                               |
 | Logo               | font-sans font-semibold tracking-tighter text-lg uppercase                               |
 
-Italic accent in headings: use a span with text-stone-400 italic font-normal
+Italic accent in headings: use a span with text-taupe italic font-normal
 
 ---
 
