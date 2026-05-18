@@ -186,8 +186,13 @@ nav.fm-nav-bar::before { will-change: transform; transform: translateZ(0); backf
         </div>
     </div>
 
-    <!-- Hero -->
-    <header class="min-h-[70vh] flex flex-col justify-end p-6 lg:p-10 pb-16 lg:pb-24 max-w-[1600px] mx-auto bg-pb-bg">
+    <!-- Hero beeld — full-bleed, tegen de top (menu ligt erover) -->
+    <div class="w-full overflow-hidden bg-pb-surface-alt" style="height: min(70vh, 760px);">
+        <img src="assets/sanctuary.webp" alt="Stijlvolle design hotelkamer met warme gordijnen en vrijstaand bad" class="fm-image w-full h-full object-cover" loading="eager">
+    </div>
+
+    <!-- Hero tekst — onder het beeld -->
+    <header class="flex flex-col p-6 lg:p-10 pt-12 lg:pt-16 pb-16 lg:pb-24 max-w-[1600px] mx-auto bg-pb-bg">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-end">
             <div class="lg:col-span-8">
                 <div class="text-xs font-semibold uppercase tracking-widest text-pb-faint mb-6">Sanctuary</div>
